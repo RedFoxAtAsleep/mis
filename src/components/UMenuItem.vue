@@ -2,6 +2,7 @@
     <div>
         <u-menu-end
                 v-if="item['children'].length === 0"
+                v-show="item['show']"
                 :index="item['uid']"
                 :uid="item['uid']"
                 :path="item['path']"

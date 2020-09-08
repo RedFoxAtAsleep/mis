@@ -25,8 +25,9 @@ function mapWalker(map, page, pages) {
                 'name': sub['name'],
                 'label': sub['name'],
                 'content': sub['name'],
-                'loaded': true,
-              'route':sub['route'],
+                'loaded': sub['loaded'],
+                'route': sub['route'],
+              'show':sub['show'],
             }
         } else {
             mapWalker(sub['children'], page, pages);
@@ -42,13 +43,17 @@ let map = [
         'label': 'someapp',
         'singleton': true,
         'weight': 0,
+        'show': true,
         'children': [
             {
+
                 'name': 'list',
                 'label': 'list',
                 'singleton': true,
                 'weight': 0,
-              'route':'/someapp/list',
+                'route': '/someapp/list',
+                'show': true,
+              'loaded': false,
                 'children': []
             },
             {
@@ -56,10 +61,72 @@ let map = [
                 'label': 'detail',
                 'singleton': true,
                 'weight': 0,
-              'route':'/someapp/detail',
+                'route': '/someapp/detail',
+                'show': true,
+              'loaded': false,
                 'children': []
-            }
+            },
+          {
+                'name': 'post',
+                'label': 'post',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/post',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
         ]
+    },
+    {
+        'name': 'vt',
+        'label': 'vt',
+        'singleton': true,
+        'weight': 0,
+        'show': true,
+        'children': [
+            {
+
+                'name': 'list',
+                'label': 'list',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-list',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+            {
+                'name': 'detail',
+                'label': 'detail',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-detail',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+          {
+                'name': 'commit',
+                'label': 'commit',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-commit',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+        ]
+    },
+    {
+        'name': 'hidden',
+        'label': 'hidden',
+        'singleton': true,
+        'weight': 0,
+        'show': false,
+      'loaded': false,
+      'route': '/someapp',
+        'children': []
     }
 ];
 let page = [];
@@ -84,7 +151,7 @@ export default new Vuex.Store({
             state['pages'][pageUid]['loaded'] = !state.pages[pageUid]['loaded']
         },
         selectPath(state, path) {
-          console.log('path', path);
+            console.log('path', path);
             state['selectedPath'] = path;
         }
     },

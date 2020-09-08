@@ -1,19 +1,19 @@
 import request from './request'
 
-const readLinks = function (data ) {
-    // {'filter':{}, 'offset': 0, 'limit': 0, 'order':['']}
-    const url = 'someapp/links';
+const listDownload = function (data ) {
+    const url = 'vt/download/list';
     return request.post( url, data );
 };
 
 
-const post = function (data) {
+const commitDownload = function (data) {
     // {'filter':{}, 'offset': 0, 'limit': 0, 'order':['']}
     const url = 'vt/commit';
     return request.post( url, data );
 };
 
+
 export default {
-    readLinks,
-    post
+    listDownload,
+    commitDownload
 }

@@ -2,18 +2,22 @@
     <div>
         <el-tabs
                 v-model="selectedTabName"
-                type="card"
+                type="border-card"
                 closable
                 @tab-remove="removeTab"
         >
-            <el-tab-pane
-                    v-for="page in loadedPages"
-                    :key="page['uid']"
-                    :label="page['label']"
-                    :name="page['uid']"
-            >
-                <router-view></router-view>
-            </el-tab-pane>
+                <el-tab-pane
+                        v-for="page in loadedPages"
+                        :key="page['uid']"
+                        :label="page['label']"
+                        :name="page['uid']"
+                        :closable="page['closable']"
+
+                >
+                    <keep-alive>
+                        <router-view></router-view>
+                    </keep-alive>
+                </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -24,19 +28,27 @@
         name: "Tabs",
         data() {
             return {
-                selectedTabName: '',
+                selectedTabName:'page-hidden',
             }
         },
         watch: {
+            // 同步代表选中标签页的全局数据项和局部数据项
             'selectedPath': function (now, pre) {
-                console.log(now, pre);
+                // 以点击标签页以外的方式切换标签页
+                // 全局变 > 局部变
+                console.log('now: ', now, '; pre: ', pre);
                 this.selectedTabName = 'page-' + now;
             },
             'selectedTabName': function (now, pre) {
+                // 在监听x中自然不能使用x，而是使用x_now和x_pre
+                // 在以点击标签页切换标签页的情况下触发
+                // 局不变 > 全局变
                 console.log(now, pre);
-                let path = this.selectedTabName.split('-').slice(1).join('-');
+                let path = now.split('-').slice(1).join('-');
+                console.log('#######', path);
                 this.$store.commit('selectPath', path);
-                this.$router.push(this.pages['page-'+path]['route'])
+                this.$router.push(this.pages['page-'+path]['route']).catch()
+                // this.$router.push(this.pages['page-'+path]['route']).catch(err => {console.log(err)})
             }
         },
         computed: {
@@ -59,33 +71,24 @@
             ])
         },
         methods: {
-            addTab(targetName) {
-                console.log(targetName);
-                let newTabName = ++this.tabuid + '';
-                this.editableTabs.push({
-                    title: 'New Tab',
-                    name: newTabName,
-                    content: 'New Tab content'
-                });
-                this.editableTabsValue = newTabName;
-            },
             removeTab(tabName) {
-                console.log('tabName', tabName);
-                let nextTabName;
-                if (this.seletedTabName === tabName) {
+                console.log('remove tab', tabName);
+                if (this.selectedTabName === tabName) {
                     for (let i in this.loadedPages) {
                         let pageObj = this.loadedPages[i];
-                        if (this.seletedTabName === pageObj['uid']) {
+                        if (this.selectedTabName === pageObj['uid']) {
                             let nextTab = this.loadedPages[i + 1] || this.loadedPages[i - 1];
                             if (nextTab){
-                                nextTabName = nextTab['uid']
+                                this.selectedTabName = nextTab['uid']
+                            }
+                            else{
+                                this.selectedTabName = 'page-hidden'
                             }
                             break;
                         }
                     }
                 }
                 this.$store.commit('inverseLoaded', tabName);
-                this.selectedTabName = nextTabName;
 
             }
         }
