@@ -33,7 +33,8 @@
                     this.$store.commit('inverseLoaded', pageUid);
                 }
                 this.$store.commit('selectPath', path);
-                this.$router.push(this.pages['page-' + path]['route']).catch(err => {console.log(err)})
+                this.$router.push(this.pages['page-' + path]['route']).catch()
+                // this.$router.push(this.pages['page-' + path]['route']).catch(err => {console.log(err)})
             }
         },
     }

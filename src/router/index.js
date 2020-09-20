@@ -4,6 +4,11 @@ import Frame from "../components/Frame";
 
 Vue.use(VueRouter);
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+};
+
 const routes = [
   {
     path: '/',
@@ -38,9 +43,23 @@ const routes = [
         name:'post',
         component:() => import(/* webpackChunkName: "about" */ '../components/Form.vue')
       },
-
+      {
+        path:'vt-list',
+        name:'vt-list',
+        component:()=>import("@/components/List")
+      },
+      {
+        path:'vt-detail',
+        name:'vt-detail',
+        component:() => import(/* webpackChunkName: "about" */ '../views/About.vue')
+      },
+      {
+        path:'vt-commit',
+        name:'vt-commit',
+        component:() => import(/* webpackChunkName: "about" */ '../components/Form.vue')
+      },
     ]
-  }
+  },
 ];
 
 const router = new VueRouter({

@@ -31,7 +31,7 @@
 
                 const form = new FormData();
                 form.append("mail", this.data.mail);
-                form.append("file", this.data.hash_list);
+                form.append("hash_list", this.data.hash_list);
                 api.post(form, { headers: {
                         "Content-Type": "application/json",
                         "cache-control": "no-cache",

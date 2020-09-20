@@ -79,6 +79,46 @@ let map = [
         ]
     },
     {
+        'name': 'vt',
+        'label': 'vt',
+        'singleton': true,
+        'weight': 0,
+        'show': true,
+        'children': [
+            {
+
+                'name': 'list',
+                'label': 'list',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-list',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+            {
+                'name': 'detail',
+                'label': 'detail',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-detail',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+          {
+                'name': 'commit',
+                'label': 'commit',
+                'singleton': true,
+                'weight': 0,
+                'route': '/someapp/vt-commit',
+                'show': true,
+              'loaded': false,
+                'children': []
+            },
+        ]
+    },
+    {
         'name': 'hidden',
         'label': 'hidden',
         'singleton': true,
