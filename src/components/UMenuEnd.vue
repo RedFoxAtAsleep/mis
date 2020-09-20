@@ -1,5 +1,10 @@
 <template>
-    <el-menu-item v-bind:index="uid" @click="activateTab"><slot></slot></el-menu-item>
+    <el-menu-item
+            v-bind:index="uid"
+            @click="activateTab"
+    >
+        <slot></slot>
+    </el-menu-item>
 </template>
 <script>
     import {mapState, mapMutations} from 'vuex'
@@ -21,13 +26,14 @@
         methods: {
             activateTab(target){
                 console.log(target);
-                let pageUid = 'page-'+this.path;
+                let path = this.path;
+                let pageUid = 'page-'+ path;
                 // let pageUid = this.uid.split('-').slice(1).join('-');
                 if(!this.pages[pageUid]['loaded']){
                     this.$store.commit('inverseLoaded', pageUid);
                 }
-                this.$store.commit('selectPath', this.path);
-                this.$router.push(this.pages[this.path]['route'])
+                this.$store.commit('selectPath', path);
+                this.$router.push(this.pages['page-' + path]['route']).catch(err => {console.log(err)})
             }
         },
     }

@@ -6,6 +6,14 @@ const readLinks = function (data ) {
     return request.post( url, data );
 };
 
+
+const post = function (data, setting) {
+    // {'filter':{}, 'offset': 0, 'limit': 0, 'order':['']}
+    const url = 'someapp/post';
+    return request.post( url, data, setting );
+};
+
 export default {
-    readLinks
+    readLinks,
+    post
 }
