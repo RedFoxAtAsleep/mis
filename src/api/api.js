@@ -14,8 +14,13 @@ export const listDownload = function (data){
     return vtClient.listDownload(data).then().catch()
 }
 
+export const submitHashList = function (data, config) {
+    return vtClient.submitHashList(data, config).then().catch()
+}
+
 export default {
     readLinks,
     post,
     listDownload,
+    submitHashList,
 }

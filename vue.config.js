@@ -1,7 +1,7 @@
 module.exports = {
-    // outputDir: '',  // https://cli.vuejs.org/zh/config/https://cli.vuejs.org/zh/config/
+    // publicPath: '',  // 前端路由从哪里开始 https://cli.vuejs.org/config/#publicPath
     outputDir: 'dist',  // 相对于根目录
-    indexPath: 'index.html',  // 相对于outputDir
+    indexPath: 'templates/index.html',  // 相对于outputDir
     assetsDir: 'static',  // 相对于outputDir，js、css、img、fonts
     devServer: {
         proxy: 'http://localhost:9090'
