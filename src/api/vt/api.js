@@ -15,7 +15,7 @@ const commitDownload = function (data) {
 
 const submitHashList = function (data, config) {
     // {'filter':{}, 'offset': 0, 'limit': 0, 'order':['']}
-    const url = 'vt/group/download';
+    const url = 'vt/samples/download';
     console.log(data);
     console.log(config);
     return request.post( url, data , config);
