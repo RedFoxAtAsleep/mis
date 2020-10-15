@@ -38,46 +38,46 @@ function mapWalker(map, page, pages) {
 }
 
 let map = [
-    {
-        'name': 'someapp',
-        'label': 'someapp',
-        'singleton': true,
-        'weight': 0,
-        'show': true,
-        'children': [
-            {
-
-                'name': 'list',
-                'label': 'list',
-                'singleton': true,
-                'weight': 0,
-                'route': '/someapp/list',
-                'show': true,
-              'loaded': false,
-                'children': []
-            },
-            {
-                'name': 'detail',
-                'label': 'detail',
-                'singleton': true,
-                'weight': 0,
-                'route': '/someapp/detail',
-                'show': true,
-              'loaded': false,
-                'children': []
-            },
-          {
-                'name': 'post',
-                'label': 'post',
-                'singleton': true,
-                'weight': 0,
-                'route': '/someapp/post',
-                'show': true,
-              'loaded': false,
-                'children': []
-            },
-        ]
-    },
+    // {
+    //     'name': 'someapp',
+    //     'label': 'someapp',
+    //     'singleton': true,
+    //     'weight': 0,
+    //     'show': true,
+    //     'children': [
+    //         {
+    //
+    //             'name': 'list',
+    //             'label': 'list',
+    //             'singleton': true,
+    //             'weight': 0,
+    //             'route': '/someapp/list',
+    //             'show': true,
+    //           'loaded': false,
+    //             'children': []
+    //         },
+    //         {
+    //             'name': 'detail',
+    //             'label': 'detail',
+    //             'singleton': true,
+    //             'weight': 0,
+    //             'route': '/someapp/detail',
+    //             'show': true,
+    //           'loaded': false,
+    //             'children': []
+    //         },
+    //       {
+    //             'name': 'post',
+    //             'label': 'post',
+    //             'singleton': true,
+    //             'weight': 0,
+    //             'route': '/someapp/post',
+    //             'show': true,
+    //           'loaded': false,
+    //             'children': []
+    //         },
+    //     ]
+    // },
     {
         'name': 'vt',
         'label': 'vt',
@@ -91,17 +91,7 @@ let map = [
                 'label': 'list',
                 'singleton': true,
                 'weight': 0,
-                'route': '/someapp/vt-list',
-                'show': true,
-              'loaded': false,
-                'children': []
-            },
-            {
-                'name': 'detail',
-                'label': 'detail',
-                'singleton': true,
-                'weight': 0,
-                'route': '/someapp/vt-detail',
+                'route': '/navigation/tab-list',
                 'show': true,
               'loaded': false,
                 'children': []
@@ -111,7 +101,7 @@ let map = [
                 'label': 'commit',
                 'singleton': true,
                 'weight': 0,
-                'route': '/someapp/vt-commit',
+                'route': '/navigation/tab-commit',
                 'show': true,
               'loaded': false,
                 'children': []
@@ -125,7 +115,7 @@ let map = [
         'weight': 0,
         'show': false,
       'loaded': false,
-      'route': '/someapp',
+      'route': '/navigation',
         'children': []
     }
 ];

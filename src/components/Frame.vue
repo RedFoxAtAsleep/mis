@@ -1,10 +1,10 @@
 <template>
 
-    <el-container style="height: 500px; border: 1px solid #eee">
-        <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+    <el-container style="height: 900px; border: 1px solid #eee">
+        <el-aside width="200px" style="background-color: rgb(238, 241, 246);height: 100%">
             <u-menu v-bind:items="pageMap"></u-menu>
         </el-aside>
-        <el-main>
+        <el-main class="padding" style="height: 100%">
             <tabs></tabs>
         </el-main>
     </el-container>
@@ -20,6 +20,12 @@
         color: #333;
     }
 </style>
+<style scoped>
+.padding {
+  padding: 0;
+}
+
+</style>
 <script>
     import {mapState} from "vuex";
     import Tabs from "./Tabs";
@@ -27,14 +33,7 @@
 
     export default {
         data() {
-            const item = {
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            };
-            return {
-                tableData: Array(20).fill(item)
-            }
+            return {}
         },
         computed: {
             ...mapState({

@@ -18,7 +18,7 @@
 
 <script>
 import apiClient from '../api/api';
-// import FormData from 'form-data'
+
 export default {
   name: "Form",
   data() {

@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import("@/components/HelloWorld")
+    redirect: '/navigation',
   },
   {
     path: '/about',
@@ -24,38 +24,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/someapp',
-    name: 'someapp',
+    path: '/navigation',
+    name: 'navigation',
     component: Frame,
     children: [
       {
-        path:'list',
-        name:'list',
-        component:()=>import("@/components/HelloWorld")
-      },
-      {
-        path:'detail',
-        name:'detail',
-        component:() => import(/* webpackChunkName: "about" */ '../views/About.vue')
-      },
-      {
-        path:'post',
-        name:'post',
-        component:() => import(/* webpackChunkName: "about" */ '../components/Form.vue')
-      },
-      {
-        path:'vt-list',
-        name:'vt-list',
+        path:'tab-list',
+        name:'tab-list',
         component:()=>import("@/components/List")
       },
       {
-        path:'vt-detail',
-        name:'vt-detail',
-        component:() => import(/* webpackChunkName: "about" */ '../views/About.vue')
-      },
-      {
-        path:'vt-commit',
-        name:'vt-commit',
+        path:'tab-commit',
+        name:'tab-commit',
         component:() => import(/* webpackChunkName: "about" */ '../components/Form.vue')
       },
     ]
