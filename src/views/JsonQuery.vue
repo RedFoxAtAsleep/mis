@@ -43,6 +43,7 @@ import {simpleQuery} from '@/api/api'
 
 
 export default {
+  name: 'JsonQuery',
   data() {
     return {
       json: {},

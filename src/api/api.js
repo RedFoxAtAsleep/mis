@@ -1,5 +1,6 @@
 import demzClient from './demz/api.js'
 import vtClient from './vt/api'
+// import {Message, Notification} from "element-ui";
 
 export const readLinks = function (data) {
     // 单纯的Ajax请求，没有校验，没有注册回调，...
@@ -16,7 +17,7 @@ export const simpleQuery = function (data){
 }
 
 export const submitHashList = function (data, config) {
-    return vtClient.submitHashList(data, config).then().catch()
+    return vtClient.submitHashList(data, config).then(response=>{ console.log('response', response);}).catch()
 }
 
 export default {
