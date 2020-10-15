@@ -4,16 +4,13 @@
                 v-model="selectedTabName"
                 type="border-card"
                 closable
-                @tab-remove="removeTab"
-        >
+                @tab-remove="removeTab">
                 <el-tab-pane
                         v-for="page in loadedPages"
                         :key="page['uid']"
                         :label="page['label']"
                         :name="page['uid']"
-                        :closable="page['closable']"
-
-                >
+                        :closable="page['closable']">
                     <keep-alive>
                         <router-view></router-view>
                     </keep-alive>
@@ -45,7 +42,6 @@
                 // 局不变 > 全局变
                 console.log(now, pre);
                 let path = now.split('-').slice(1).join('-');
-                console.log('#######', path);
                 this.$store.commit('selectPath', path);
                 this.$router.push(this.pages['page-'+path]['route']).catch()
                 // this.$router.push(this.pages['page-'+path]['route']).catch(err => {console.log(err)})
@@ -72,7 +68,6 @@
         },
         methods: {
             removeTab(tabName) {
-                console.log('remove tab', tabName);
                 if (this.selectedTabName === tabName) {
                     for (let i in this.loadedPages) {
                         let pageObj = this.loadedPages[i];
