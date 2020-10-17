@@ -4,45 +4,51 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 
-function setDefaultOption(optionMeta, index){
-    for(let option in optionMeta){
-        if(!(option in index)){
-            index[option] = optionMeta[option]['default']
-        }
-    }
-    return index
-}
+// function setDefaultOption(optionMeta, index){
+//     for(let option of Object.getOwnPropertyNames(optionMeta)){
+//         console.log(option, optionMeta[option]);
+//         if(!(option in index)){
+//             index[option] = optionMeta[option]['default']
+//         }
+//     }
+//     return index
+// }
 
 
 function indexWalker(indexConfig, indexStack, indices, route2index, optionMeta) {
-    for (let k in Object.keys(indexConfig)) {
-        let item = indexConfig[k];
-
-        item = setDefaultOption(optionMeta, item);
+    for (let item of indexConfig) {
 
         indexStack.push(item['name']);
         item['path'] = Object.assign([], indexStack);
         item['uid'] = indexStack.join('-');
 
-        if(!('icon' in item)){
-            if(item['type'] === 'link'){
-                item['icon'] = 'el-icon-link'
-            }
-            else if(item['children'].length > 0){
-                item['icon'] = 'el-icon-menu'
-            }
-            else{
-                item['icon'] = 'el-icon-s-promotion'
+        for(let option of Object.getOwnPropertyNames(optionMeta)){
+            if(!(option in item)){
+                item[option] = optionMeta[option]['default']
             }
         }
 
-        if (item['children'].length === 0) {
-            item['route']['uid'] = item['uid'];
-            indices[item['uid']] = Object.assign({}, item);
-            route2index[item['route']['name']] = item['uid']
-        } else {
-            indexWalker(item['children'], indexStack, indices, route2index);
+        if(item['type'] === 'link'){
+            item['icon'] = 'el-icon-link'
         }
+        else if(item['children'].length > 0){
+            item['icon'] = 'el-icon-menu'
+        }
+        else{
+            item['icon'] = 'el-icon-s-promotion'
+        }
+
+        if('route' in item){
+            item['route']['uid'] = item['uid'];
+            route2index[item['route']['name']] = item['uid']
+        }
+
+        if (item['children'].length === 0) {
+            indices[item['uid']] = Object.assign({}, item);
+        } else {
+            indexWalker(item['children'], indexStack, indices, route2index, optionMeta);
+        }
+
         indexStack.pop();
     }
     return [indexConfig, indices, route2index]
@@ -59,7 +65,8 @@ let optionMeta = {
     loaded: {default: false, type: 'boolean', },
     children: {default: [], type: 'list', },
     src: {default: '', type: 'string', },
-}
+    icon: {default: '', type: 'string', },
+};
 
 
 let indexConfig = [
@@ -94,12 +101,12 @@ let indexConfig = [
                 type: 'link',
                 src: 'http://10.51.10.68:9001/',
             },
-            {
-                name: 'flower',
-                label: 'Flower面板',
-                type: 'link',
-                src: 'http://10.51.10.68:5555/',
-            },
+            // {
+            //     name: 'flower',
+            //     label: 'Flower面板',
+            //     type: 'link',
+            //     src: 'http://10.51.10.68:5555/',
+            // },
             {
                 name: 'flower',
                 label: 'Flower面板',
