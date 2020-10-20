@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Frame from "@/components/Frame";
 import NavigationIndex from "@/views/Navigation/index.vue"
 import IframeIndex from "@/views/Iframe/index.vue"
 import JsonQuery from "@/views/JsonQuery.vue"
-import SimpleForm from "@/views/SimpleForm";
+import VtsSubmitRequire from "@/views/VtsSubmitRequire";
+import VtsSubmitRequireTest from "@/views/VtsSubmitRequireTest";
 import Page404 from "@/components/Page404.vue"
 // import Home from "@/views/Home.vue"
 // import About from "@/views/About.vue"
@@ -104,43 +104,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
     },
     {
-        path: '/someapp',
-        name: 'someapp',
-        component: Frame,
-        children: [
-            {
-                path: 'list',
-                name: 'list',
-                component: () => import("@/components/HelloWorld")
-            },
-            {
-                path: 'detail',
-                name: 'detail',
-                component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-            },
-            {
-                path: 'post',
-                name: 'post',
-                component: () => import(/* webpackChunkName: "about" */ '../components/Form.vue')
-            },
-            {
-                path: 'vt-list',
-                name: 'vt-list',
-                component: () => import("@/components/List")
-            },
-            {
-                path: 'vt-detail',
-                name: 'vt-detail',
-                component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-            },
-            {
-                path: 'vt-commit',
-                name: 'vt-commit',
-                component: () => import(/* webpackChunkName: "about" */ '../components/Form.vue')
-            },
-        ]
-    },
-    {
         path: '/iframe/:uid',
         name: 'Iframe',
         component: IframeIndex,
@@ -155,7 +118,12 @@ const routes = [
             {
                 path: 'vt-commit',
                 name: 'VtCommit',
-                component: SimpleForm
+                component: VtsSubmitRequire
+            },
+            {
+                path: 'vt-commit-test',
+                name: 'VtCommitTest',
+                component: VtsSubmitRequireTest
             },
             {
                 path: 'vt-query',

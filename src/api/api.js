@@ -20,9 +20,14 @@ export const submitHashList = function (data, config) {
     return vtClient.submitHashList(data, config).then(response=>{ console.log('response', response);}).catch()
 }
 
+export const submitHashListV2 = function (data, config) {
+    return vtClient.submitHashListV2(data, config).then(response=>{ console.log('response', response);}).catch()
+}
+
 export default {
     readLinks,
     post,
     simpleQuery,
     submitHashList,
+    submitHashListV2
 }

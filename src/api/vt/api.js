@@ -14,8 +14,17 @@ const submitHashList = function (data, config) {
     return request.post( url, data , config);
 };
 
+const submitHashListV2 = function (data, config) {
+    // {'filter':{}, 'offset': 0, 'limit': 0, 'order':['']}
+    const url = 'vts/require/';
+    console.log(data);
+    console.log(config);
+    return request.post( url, data , config);
+};
+
 
 export default {
     simpleQuery,
-    submitHashList
+    submitHashList,
+    submitHashListV2
 }
