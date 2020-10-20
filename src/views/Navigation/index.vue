@@ -18,6 +18,9 @@
         color: #333;
         line-height: 60px;
     }
+    .el-aside{
+        border-right: solid 2px #000000;
+    }
 
 </style>
 <script>

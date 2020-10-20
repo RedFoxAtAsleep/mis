@@ -97,10 +97,10 @@
         }
     }
 </script>
-<style scoped>
+<style>
     .u-el-tabs {
-        padding: 0;
-        margin: 0;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     /*.el-tabs--card > .el-tabs__header{*/
@@ -114,7 +114,7 @@
     .u-el-tabs .el-tabs__header {
         height: 5vh;
         background-color: white;
-        border: none;
+        border: 0 !important;
     }
 
     .u-el-tabs .el-tabs__nav-wrap {
