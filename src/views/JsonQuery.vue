@@ -48,17 +48,29 @@ export default {
     return {
       json: {},
       caches:{
-        'commit_static_a_week': {
+        'require_static_a_week': {
           "select": ["mail", "mail__count", "origin_size__sum"],
-          "from":"commit",
-          "where": {"commit_gmtime_gte": "2020-09-29"},
+          "from":"require",
+          "where": {"created__gte": "2020-09-29"},
           "group_by":["mail"],
           "aggregate":["mail__count", "origin_size__sum"],
           "order_by": ["mail__count"],
           "offset": 0,
           "limit": 5,
           "timezone_offset": new Date().getTimezoneOffset(),
-          "datetime_format": "yyyy-MM-dd HH:mm:ss"
+          "datetime_format": "yyyy-MM-dd"
+        },
+        'commit_static_a_week': {
+          "select": ["mail", "mail__count", "origin_size__sum"],
+          "from":"commit",
+          "where": {"commit_gmtime__gte": "2020-09-29"},
+          "group_by":["mail"],
+          "aggregate":["mail__count", "origin_size__sum"],
+          "order_by": ["mail__count"],
+          "offset": 0,
+          "limit": 5,
+          "timezone_offset": new Date().getTimezoneOffset(),
+          "datetime_format": "yyyy-MM-dd"
         },
         'commit_static_every_day': {
           "row_extension": ["commit_gmtime__year", "commit_gmtime__month", "commit_gmtime__day"],
@@ -71,7 +83,7 @@ export default {
           "offset": 0,
           "limit": 5,
           "timezone_offset": new Date().getTimezoneOffset(),
-          "datetime_format": "yyyy-MM-dd HH:mm:ss"
+          "datetime_format": "yyyy-MM-dd"
         },
         'commit_static_every_week': {
           "row_extension": ["commit_gmtime__year", "commit_gmtime__week", "commit_gmtime__day"],
@@ -84,7 +96,7 @@ export default {
           "offset": 0,
           "limit": 5,
           "timezone_offset": new Date().getTimezoneOffset(),
-          "datetime_format": "yyyy-MM-dd HH:mm:ss"
+          "datetime_format": "yyyy-MM-dd"
         }
 
 

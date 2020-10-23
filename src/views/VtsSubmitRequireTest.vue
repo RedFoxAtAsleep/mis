@@ -38,7 +38,7 @@ export default {
       const form = new FormData();
       form.append("mail", this.data.mail || 'zhaojinhui@intra.nsfocus.com');
       form.append("hash_list", this.hash_list.raw);
-      apiClient.submitHashList(form, {
+      apiClient.submitHashListV2(form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

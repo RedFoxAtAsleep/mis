@@ -19,7 +19,7 @@
         line-height: 60px;
     }
     .el-aside{
-        border-right: solid 2px #000000;
+        /*border-right: solid 2px #000000;*/
     }
 
 </style>

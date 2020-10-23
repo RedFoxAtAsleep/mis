@@ -5,6 +5,7 @@ import IframeIndex from "@/views/Iframe/index.vue"
 import JsonQuery from "@/views/JsonQuery.vue"
 import VtsSubmitRequire from "@/views/VtsSubmitRequire";
 import VtsSubmitRequireTest from "@/views/VtsSubmitRequireTest";
+import VtsDownloadPackage from "@/views/VtsDownloadPackage";
 import Page404 from "@/components/Page404.vue"
 // import Home from "@/views/Home.vue"
 // import About from "@/views/About.vue"
@@ -31,10 +32,10 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        redirect: '/someapp',
+        redirect: '/navigation',
         meta: {requiresAuth: true}
     },
-    { path: '/settings',
+    { path: '/router/demo',
         // You could also have named views at tho top
         component: UserSettings,
         children: [{
@@ -129,6 +130,11 @@ const routes = [
                 path: 'vt-query',
                 name: 'VtQuery',
                 component: JsonQuery
+            },
+            {
+                path: 'vt-download',
+                name: 'VtDownload',
+                component: VtsDownloadPackage
             },
             {
                 path: 'iframe/:uid',

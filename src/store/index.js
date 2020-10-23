@@ -83,6 +83,14 @@ let indexConfig = [
                 },
             },
             {
+
+                name: 'commit-test',
+                label: '测试页面：通知批量下载样本',
+                route: {
+                    'name': 'VtCommitTest'
+                },
+            },
+            {
                 name: 'query',
                 label: 'VT信息查询',
                 route: {
@@ -90,74 +98,51 @@ let indexConfig = [
                 },
             },
             {
-                name: 'admin',
-                label: 'Admin面板',
-                type: 'link',
-                src: 'http://10.51.10.68:8000/admin',
-            },
-            {
-                name: 'supervisor',
-                label: 'Supervisor面板',
-                type: 'link',
-                src: 'http://10.51.10.68:9001/',
-            },
-            // {
-            //     name: 'flower',
-            //     label: 'Flower面板',
-            //     type: 'link',
-            //     src: 'http://10.51.10.68:5555/',
-            // },
-            {
-                name: 'flower',
-                label: 'Flower面板',
-                type: 'iframe',
-                src: 'http://10.51.10.68:5555/',
-                singleton: true,
+                name: 'download',
+                label: '下载批量样本包',
                 route: {
-                    'name': 'NavigationIframe',
-                    'params': {
-                        'uid': 'vt-flower'
-                    }
+                    'name': 'VtDownload'
                 },
+            },
+            {
+                name: 'admin',
+                label: '管理面板',
+                children: [
+                    {
+                        name: 'admin',
+                        label: 'Admin面板',
+                        type: 'link',
+                        src: 'http://10.51.10.68:8000/admin',
+                    },
+                    {
+                        name: 'supervisor',
+                        label: 'Supervisor面板',
+                        type: 'link',
+                        src: 'http://10.51.10.68:9001/',
+                    },
+                    {
+                        name: 'flower',
+                        label: 'Flower面板',
+                        type: 'link',
+                        src: 'http://10.51.10.68:5555/',
+                    },
+                    {
+                        name: 'flower-test',
+                        label: 'Flower面板',
+                        type: 'iframe',
+                        src: 'http://10.51.10.68:5555/',
+                        singleton: true,
+                        route: {
+                            'name': 'NavigationIframe',
+                            'params': {
+                                uid: 'vt-admin-flower-test'
+                            }
+                        },
+                    },
+                ]
             },
         ]
     },
-    // {
-    //     name: 'baidu',
-    //     label: 'baidu',
-    //     src: 'https://www.baidu.com/',
-    //     weight: 0,
-    //     show: true,
-    //
-    //     roles: [],
-    //     cache: true,
-    //     loaded: false,
-    //     route: {
-    //         name: 'Iframe',
-    //         params: {
-    //             uid: 'baidu'
-    //         }
-    //     },
-    //     children: []
-    // },
-    // {
-    //     name: 'sogou',
-    //     label: 'sogou',
-    //     src: 'https://www.sogou.com',
-    //     weight: 0,
-    //     show: true,
-    //
-    //     roles: [],
-    //     cache: true,
-    //     loaded: false,
-    //     route: {
-    //         name: 'Iframe',
-    //         params: {
-    //             uid: 'sogou'
-    //         }
-    //     },
-    //     children: []
-    // },
 ];
 let indexStack = [];
 let indices = {};

@@ -45,7 +45,8 @@
                 return window.screen.availWidth;
             },
             src: function () {
-                // let uid = this.$route.params.uid;
+              console.log('uid', this.uid, this.$route.params.uid);
+              console.log('indices', this.indices);
                 return this.indices[this.uid]['src']
             }
         },
