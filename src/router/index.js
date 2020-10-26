@@ -134,7 +134,8 @@ const routes = [
             {
                 path: 'vt-download',
                 name: 'VtDownload',
-                component: VtsDownloadPackage
+                component: VtsDownloadPackage,
+                props: true
             },
             {
                 path: 'iframe/:uid',

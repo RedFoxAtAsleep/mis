@@ -101,7 +101,10 @@ let indexConfig = [
                 name: 'download',
                 label: '下载批量样本包',
                 route: {
-                    'name': 'VtDownload'
+                    'name': 'VtDownload',
+                    'params': {
+                        mail: 'all'
+                    }
                 },
             },
             {

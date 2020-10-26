@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       data: {
-        'mail': '',
+        'mail': '@intra.nsfocus.com',
         'hash_list': ''
       },
       hash_list: ''

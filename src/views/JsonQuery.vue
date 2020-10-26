@@ -48,6 +48,18 @@ export default {
     return {
       json: {},
       caches:{
+        'requires': {
+          "select": ["created", "collected", "checked_md5", "report"],
+          "from":"require",
+          "where": {"created__gte": "2020-09-29"},
+          "group_by":[],
+          "aggregate":[],
+          "order_by": ["-created"],
+          "offset": 0,
+          "limit": 100,
+          "timezone_offset": new Date().getTimezoneOffset(),
+          "datetime_format": "yyyy-MM-dd"
+        },
         'require_static_a_week': {
           "select": ["mail", "mail__count", "origin_size__sum"],
           "from":"require",
