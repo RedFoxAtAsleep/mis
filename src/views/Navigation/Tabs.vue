@@ -10,7 +10,7 @@
                 :label="index['label']"
                 :name="index['uid']"
                 :closable="index['closable']">
-            <keep-alive>
+            <keep-alive >
                 <router-view></router-view>
             </keep-alive>
         </el-tab-pane>
@@ -31,7 +31,7 @@
             'selectedGlobal': function (now, pre) {
                 // 以点击标签页以外的方式切换标签页
                 // 全局变 > 局部变
-                console.log(now, pre);
+                console.log('selectedGlobal',now, pre);
                 if(now in this.indices){
                     this.selectedLocal = now;
                 }
@@ -44,7 +44,7 @@
                 // 在监听x中自然不能使用x，而是使用x_now和x_pre
                 // 在以点击标签页切换标签页的情况下触发
                 // 局部变 > 全局变
-                console.log(now, pre);
+                console.log('selectedLocal',now, pre);
                 this.$store.commit('select', now);
                 if (now in this.indices) {
                     this.$router.push(this.indices[now]['route']).then().catch();

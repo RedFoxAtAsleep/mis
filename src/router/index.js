@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Frame from "@/components/Frame";
 import NavigationIndex from "@/views/Navigation/index.vue"
 import IframeIndex from "@/views/Iframe/index.vue"
 import JsonQuery from "@/views/JsonQuery.vue"
-import SimpleForm from "@/views/SimpleForm";
+import VtsSubmitRequire from "@/views/VtsSubmitRequire";
+import VtsSubmitRequireTest from "@/views/VtsSubmitRequireTest";
+import VtsDownloadPackage from "@/views/VtsDownloadPackage";
 import Page404 from "@/components/Page404.vue"
 // import Home from "@/views/Home.vue"
 // import About from "@/views/About.vue"
@@ -31,10 +32,10 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        redirect: '/someapp',
+        redirect: '/navigation',
         meta: {requiresAuth: true}
     },
-    { path: '/settings',
+    { path: '/router/demo',
         // You could also have named views at tho top
         component: UserSettings,
         children: [{
@@ -104,43 +105,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
     },
     {
-        path: '/someapp',
-        name: 'someapp',
-        component: Frame,
-        children: [
-            {
-                path: 'list',
-                name: 'list',
-                component: () => import("@/components/HelloWorld")
-            },
-            {
-                path: 'detail',
-                name: 'detail',
-                component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-            },
-            {
-                path: 'post',
-                name: 'post',
-                component: () => import(/* webpackChunkName: "about" */ '../components/Form.vue')
-            },
-            {
-                path: 'vt-list',
-                name: 'vt-list',
-                component: () => import("@/components/List")
-            },
-            {
-                path: 'vt-detail',
-                name: 'vt-detail',
-                component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-            },
-            {
-                path: 'vt-commit',
-                name: 'vt-commit',
-                component: () => import(/* webpackChunkName: "about" */ '../components/Form.vue')
-            },
-        ]
-    },
-    {
         path: '/iframe/:uid',
         name: 'Iframe',
         component: IframeIndex,
@@ -155,7 +119,12 @@ const routes = [
             {
                 path: 'vt-commit',
                 name: 'VtCommit',
-                component: SimpleForm
+                component: VtsSubmitRequire
+            },
+            {
+                path: 'vt-commit-test',
+                name: 'VtCommitTest',
+                component: VtsSubmitRequireTest
             },
             {
                 path: 'vt-query',
@@ -163,10 +132,51 @@ const routes = [
                 component: JsonQuery
             },
             {
+                path: 'vt-download',
+                name: 'VtDownload',
+                component: VtsDownloadPackage,
+                props: true
+            },
+            {
+                path: 'vt-statistic-require',
+                name: 'VtStatisticRequire',
+                component: () => import('@/views/VtsStatisticRequire'),
+            },
+            {
+                path: 'vt-statistic-apikey',
+                name: 'VtStatisticApiKey',
+                component: () => import('@/views/VtsStatisticApiKey'),
+            },
+            {
+                path: 'vt-statistic-sample',
+                name: 'VtStatisticSample',
+                component: () => import('@/views/VtsStatisticSample'),
+            },
+            {
+                path: 'vt-require',
+                name: 'VtRequire',
+                component: () => import('@/views/EchartSimpleBar'),
+                props: true
+            },
+            {
                 path: 'iframe/:uid',
                 name: 'NavigationIframe',
                 component: () => import('@/views/Navigation/Iframe'),
                 props: true
+            },
+        ]
+    },
+    {
+        path: '/page',
+        name: 'Page',
+        component: () => import('@/views/Area/index'),
+        props: true,
+        children: [
+            {
+                path: 'bar/',
+                name: 'Bar',
+                props: true,
+                component: () => import('@/views/EchartSimpleBar'),
             },
         ]
     },

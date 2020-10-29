@@ -43,11 +43,11 @@ const axiosResponse = function (response) {
     if (response.data.code !== 0) {
         toastError(response.data.desc || response.data.msg || response.data.message);
     }
-    if (response.data.message|| response.data.desc || response.data.msg) {
+    if (response.data.code === 0 && response.data.message|| response.data.desc || response.data.msg) {
         Message.success(response.data.message|| response.data.desc || response.data.msg)
     }
     console.log(response)
-    return response.data;
+    return response;
 };
 
 // 对响应错误做点什么，回调，Promise

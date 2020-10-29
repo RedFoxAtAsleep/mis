@@ -13,11 +13,19 @@ export const post = function (data) {
 };
 
 export const simpleQuery = function (data){
-    return vtClient.simpleQuery(data).then().catch()
+    return vtClient.simpleQuery(data)
 }
 
 export const submitHashList = function (data, config) {
-    return vtClient.submitHashList(data, config).then(response=>{ console.log('response', response);}).catch()
+    return vtClient.submitHashList(data, config)
+}
+
+export const submitHashListV2 = function (data, config) {
+    return vtClient.submitHashListV2(data, config)
+}
+
+export const downloadPackage = function (config) {
+    return vtClient.downloadPackage(config)  // promise
 }
 
 export default {
@@ -25,4 +33,6 @@ export default {
     post,
     simpleQuery,
     submitHashList,
+    submitHashListV2,
+    downloadPackage
 }
