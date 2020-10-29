@@ -47,7 +47,7 @@ const axiosResponse = function (response) {
         Message.success(response.data.message|| response.data.desc || response.data.msg)
     }
     console.log(response)
-    return response.data;
+    return response;
 };
 
 // 对响应错误做点什么，回调，Promise

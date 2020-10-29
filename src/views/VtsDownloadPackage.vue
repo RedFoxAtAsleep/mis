@@ -34,18 +34,57 @@
           :label="field2label[col]"
           width="150">
       </el-table-column>
+
+      <el-table-column
+          key="report"
+          prop="report"
+          :label="field2label['report']"
+          width="150">
+        <template slot-scope="scope">
+          <el-popover
+              placement="bottom"
+              title="标题"
+              width="200"
+              trigger="click"
+              :content="JSON.stringify(scope.row.report)">
+            <el-tag
+                slot="reference"
+                :type="scope.row.report ? 'success' : 'info'"
+                disable-transitions>
+              {{scope.row.report? 'report' : 'missed'}}
+            </el-tag>
+          </el-popover>
+        </template>
+      </el-table-column>
+
+
 <!--      <el-table-column-->
 <!--          key="report"-->
 <!--          prop="report"-->
 <!--          :label="field2label['report']"-->
 <!--          width="150">-->
 <!--        <template slot-scope="scope">-->
+
 <!--          <el-popover-->
 <!--              placement="bottom"-->
-<!--              title="样本下载报告"-->
-<!--              width="300"-->
+<!--              title="标题"-->
+<!--              width="200"-->
 <!--              trigger="click"-->
-<!--              :content="dict2str(scope.row.report.samples)">-->
+<!--              :content="JSON.stringify(scope.row.report)">-->
+<!--            <el-table :data="kv2rows(scope.row.report ||{},'sample_hash', 'sample_status')">-->
+<!--              <el-table-column-->
+<!--                  key="sample_hash"-->
+<!--                  prop="sample_hash"-->
+<!--                  label="样本哈希"-->
+<!--              >-->
+<!--              </el-table-column>-->
+<!--              <el-table-column-->
+<!--                  key="sample_status"-->
+<!--                  prop="sample_status"-->
+<!--                  label="样本状态"-->
+<!--              >-->
+<!--              </el-table-column>-->
+<!--            </el-table>-->
 <!--            <el-tag-->
 <!--                slot="reference"-->
 <!--                :type="scope.row.report ? 'success' : 'info'"-->
@@ -56,20 +95,23 @@
 
 <!--        </template>-->
 <!--      </el-table-column>-->
+
+
       <el-table-column
           fixed="right"
           label="操作">
         <template slot-scope="scope">
-          <el-button @click="downloadSamples(param.mail, scope.row.checked_md5)" type="text" size="small">点击下载样本包</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="sendUrl2Browser(param.mail, scope.row.checked_md5)" type="text" size="small">点击下载样本包</el-button>
+<!--          <el-button @click="downloadPackage(param.mail, scope.row.checked_md5)" type="text" size="small">点击下载样本包</el-button>-->
         </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 <script>
-import {simpleQuery} from '@/api/api'
 import moment from 'moment'
+import api from '@/api/api'
+// import PopoverKvTable from "@/views/PopoverKvTable";
 
 export default {
   name: "VtsDownloadPackage",
@@ -156,16 +198,16 @@ export default {
     const start = moment(end).add(-1, 'week').format("YYYY-MM-DD")
     this.param.created_range = [start, end]
 
-    simpleQuery(this.queryBody).then(res => {
-      this.rows = res.data || [];
+    api.simpleQuery(this.queryBody).then(res => {
+      this.rows = res.data.data || [];
       console.log('res', res);
     }).catch()
   },
   methods: {
     onSubmit() {
       console.log('submit', this.param);
-      simpleQuery(this.queryBody).then(res => {
-        this.rows = res.data || [];
+      api.simpleQuery(this.queryBody).then(res => {
+        this.rows = res.data.data || [];
         console.log('res', res);
       }).catch()
     },
@@ -173,11 +215,49 @@ export default {
     //   Object.keys(dict).join('\n');
     //   return dict
     // },
-    downloadSamples(mail, checked_md5){
-      console.log(mail, checked_md5)
+    sendUrl2Browser(mail, checked_md5){
+      let link = document.createElement('a');
+      let url = 'http://10.51.10.68:8000/vts/download/?'+'mail='+mail+'&'+'checked_md5='+checked_md5;
+      console.log(url);
+      let filename = 'package.7z';
+      link.href=url;
+      link.download = filename;
+      link.click()
+    },
+    downloadPackage(mail, checked_md5){
+      api.downloadPackage({
+        params:{mail: mail, checked_md5: checked_md5},
+        headers: {},
+        responseType: "blob",
+      }).then(response => {
+        let url = window.URL.createObjectURL(response.data);
+        console.log("url", url)
+        let link = document.createElement("a");
+        document.body.appendChild(link);
+        link.style.display = 'none'
+        link.href = url;
+        // link.download = 'package.7z';
+        // link.setAttribute('download', filename)
+        link.click();
+        window.URL.revokeObjectURL(url);
+      }).catch(err=>console.log(err))
+    },
+    kv2rows(obj, col_k, col_v){
+      // [{sample_hash: 'dafd', sample_status: 'faf'}, {sample_hash: 'dafd', sample_status: 'faf'}]
+      let rows = [];
+      for(let k in obj){
+        let tmp = {}
+        tmp[col_k] = k;
+        tmp[col_v] = this.obj[k]
+        rows.push(tmp)
+      }
+      return rows
     }
   },
   mounted() {
+  },
+  components:{
+    // PopoverKvTable,
   }
 }
 </script>

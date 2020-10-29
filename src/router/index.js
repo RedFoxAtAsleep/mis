@@ -138,10 +138,45 @@ const routes = [
                 props: true
             },
             {
+                path: 'vt-statistic-require',
+                name: 'VtStatisticRequire',
+                component: () => import('@/views/VtsStatisticRequire'),
+            },
+            {
+                path: 'vt-statistic-apikey',
+                name: 'VtStatisticApiKey',
+                component: () => import('@/views/VtsStatisticApiKey'),
+            },
+            {
+                path: 'vt-statistic-sample',
+                name: 'VtStatisticSample',
+                component: () => import('@/views/VtsStatisticSample'),
+            },
+            {
+                path: 'vt-require',
+                name: 'VtRequire',
+                component: () => import('@/views/EchartSimpleBar'),
+                props: true
+            },
+            {
                 path: 'iframe/:uid',
                 name: 'NavigationIframe',
                 component: () => import('@/views/Navigation/Iframe'),
                 props: true
+            },
+        ]
+    },
+    {
+        path: '/page',
+        name: 'Page',
+        component: () => import('@/views/Area/index'),
+        props: true,
+        children: [
+            {
+                path: 'bar/',
+                name: 'Bar',
+                props: true,
+                component: () => import('@/views/EchartSimpleBar'),
             },
         ]
     },

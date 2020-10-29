@@ -48,6 +48,19 @@ export default {
     return {
       json: {},
       caches:{
+        'require_daily':{
+          "row_extension": ["created__year", "created__month", "created__week", "created__day"],
+          "select":["created__year", "created__month", "created__day", "id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
+          "from":"require",
+          "where": {},
+          "group_by":["created__year", "created__month", "created__day"],
+          "aggregate":["id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
+          "order_by": ["-created__year", "-created__month", "-created__day"],
+          "offset": 0,
+          "limit": 10,
+          "timezone_offset": new Date().getTimezoneOffset(),
+          "datetime_format": "yyyy-MM-dd"
+        },
         'requires': {
           "select": ["created", "collected", "checked_md5", "report"],
           "from":"require",
@@ -155,9 +168,8 @@ export default {
       console.log(target);
       console.log(this.json);
       simpleQuery(this.json).then(res =>{
-        this.tableData = res.data;
+        this.tableData = res.data.data;
         this.cols = this.json.select;
-        console.log('res', res, res.values);
       }).catch()
     },
   }

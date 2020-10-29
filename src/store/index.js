@@ -108,6 +108,27 @@ let indexConfig = [
                 },
             },
             {
+                name: 'statistic-require',
+                label: '每日样本下载',
+                route: {
+                    name: 'VtStatisticRequire'
+                }
+            },
+            {
+                name: 'statistic-apikey',
+                label: '每日API Key使用',
+                route: {
+                    name: 'VtStatisticApiKey'
+                }
+            },
+            {
+                name: 'statistic-sample',
+                label: '本地样本分类',
+                route: {
+                    name: 'VtStatisticSample'
+                }
+            },
+            {
                 name: 'admin',
                 label: '管理面板',
                 children: [
@@ -144,6 +165,22 @@ let indexConfig = [
                     },
                 ]
             },
+        ]
+    },
+    {
+        name: 'page',
+        label: '所有页面',
+        children: [
+            {
+                name: 'vt-static',
+                label: '统计',
+                route: {
+                    'name': 'Bar',
+                    params: {
+                        'id': 'vt-static-bar'
+                    }
+                },
+            }
         ]
     },
 ];
