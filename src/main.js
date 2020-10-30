@@ -4,7 +4,11 @@ import store from './store'
 import router from './router'
 import './plugins/element'
 import './plugins/echarts'
+import './api/mock'
+import './plugins/highcharts'
 // import './plugins/antdesign'
+
+
 
 Vue.config.productionTip = false;
 

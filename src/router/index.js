@@ -164,21 +164,26 @@ const routes = [
                 component: () => import('@/views/Navigation/Iframe'),
                 props: true
             },
+            {
+                path: 'iframe/:uid',
+                name: 'NavigationIframe',
+                component: () => import('@/views/Navigation/Iframe'),
+                props: true
+            },
+            {
+                path: 'hc-basic-bar',
+                name: 'HcBasicBar',
+                props: true,
+                component: () => import('@/views/HcBasicBar'),
+            },
         ]
     },
     {
-        path: '/page',
-        name: 'Page',
-        component: () => import('@/views/Area/index'),
+        path: '/component',
+        name: 'Component',
+        component: () => import('@/views/Component/index'),
         props: true,
-        children: [
-            {
-                path: 'bar/',
-                name: 'Bar',
-                props: true,
-                component: () => import('@/views/EchartSimpleBar'),
-            },
-        ]
+        children: []
     },
     {path: '*', Page404},
 ];

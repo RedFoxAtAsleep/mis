@@ -6,7 +6,7 @@
 
 <script>
     export default {
-      name:'AreaIndex',
+      name:'ComponentIndex',
         data() {
             return {
                 // src: '',

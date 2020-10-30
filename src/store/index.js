@@ -168,16 +168,16 @@ let indexConfig = [
         ]
     },
     {
-        name: 'page',
-        label: '所有页面',
+        name: 'component',
+        label: '组件预览',
         children: [
             {
-                name: 'vt-static',
-                label: '统计',
+                name: 'hc-basic-bar',
+                label: 'HighChart基本类型柱状图',
                 route: {
-                    'name': 'Bar',
+                    'name': 'HcBasicBar',
                     params: {
-                        'id': 'vt-static-bar'
+                        'id': 'component-hc-basic-bar'
                     }
                 },
             }

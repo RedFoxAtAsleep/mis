@@ -130,6 +130,14 @@ export default {
       cols:[],
     }
   },
+  created(){
+    this.$http.get('/posts', {params:{num:3}}).then(res=>{
+      console.log('mockdata1',res);
+    });
+    this.$http.post('/news',{num:3}).then(res=>{
+      console.log('mockdata2',res);
+    })
+  },
   components: {
     VueJsonEditor
   },
