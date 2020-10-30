@@ -1,20 +1,33 @@
 <template>
-    <el-tabs class="u-el-tabs"
-             v-model="selectedLocal"
-             type="card"
-             closable
-             @tab-remove="removeTab">
-        <el-tab-pane
-                v-for="index in loadedIndices"
-                :key="index['uid']"
-                :label="index['label']"
-                :name="index['uid']"
-                :closable="index['closable']">
-            <keep-alive >
-                <router-view></router-view>
-            </keep-alive>
-        </el-tab-pane>
-    </el-tabs>
+    <div class="u-tabs">
+        <el-tabs class="u-el-tabs"
+                 v-model="selectedLocal"
+                 type="card"
+                 closable
+                 @tab-remove="removeTab">
+            <el-breadcrumb
+                    v-if="breadcrumb"
+                    separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item
+                        v-for="item in breadcrumb"
+                        :key="item"
+                >
+                    {{item in indices ? indices[item]['label']:menus[item]['label']}}
+                </el-breadcrumb-item>
+            </el-breadcrumb>
+            <div style="height: 20px"></div>
+            <el-tab-pane
+                    v-for="index in loadedIndices"
+                    :key="index['uid']"
+                    :label="index['label']"
+                    :name="index['uid']"
+                    :closable="index['closable']">
+                <keep-alive >
+                    <router-view></router-view>
+                </keep-alive>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
 </template>
 <script>
     import {mapState, mapGetters, mapMutations} from "vuex";
@@ -55,7 +68,7 @@
 
         },
         computed: {
-            loadedIndices: function () {
+            loadedIndices: function(){
                 let indices = this.indices;
                 let tmp = [];
                 for (let uid of Object.getOwnPropertyNames(indices)) {
@@ -63,17 +76,34 @@
                         tmp.push(indices[uid]);
                     }
                 }
+                tmp.forEach((index)=>{
+                    console.log('tabs index', index);
+                    this.$store.commit('select',index['uid']);
+                });
                 return tmp
             },
-            ...mapState({
+            breadcrumb:function(){
+                let tmp = [];
+                if(!(this.selectedGlobal in this.indices)){
+                    return tmp
+                }
+                let path = this.indices[this.selectedGlobal]['path'];
+                for(let n=1;n<=path.length;n++){
+                    tmp.push(path.slice(0,n).join('-'))
+                }
+                return tmp
+            },
+      ...mapState({
                 // indices: state => state.indices,
                 selectedGlobal: state => state.selected,
                 indices: state => state.indices,
+                menus: state => state.menus,
             }),
             ...mapGetters([
             ]),
             ...mapMutations([
                 'inverseLoaded',
+                'select',
             ])
         },
         methods: {
@@ -98,47 +128,72 @@
     }
 </script>
 <style>
-    .u-el-tabs {
-        padding: 0 !important;
-        margin: 0 !important;
+    .u-tabs{
     }
 
-    /*.el-tabs--card > .el-tabs__header{*/
-    /*    border-bottom: none;*/
-    /*}*/
-    .u-el-tabs .el-tabs--border-card {
-        border-bottom: none !important;
-        background-color: white;
+    .u-tabs .el-tabs--card{
     }
 
-    .u-el-tabs .el-tabs__header {
-        height: 5vh;
-        background-color: white;
-        border: 0 !important;
+    .u-tabs .el-breadcrumb .el-breadcrumb__item{
+
     }
 
-    .u-el-tabs .el-tabs__nav-wrap {
-        height: 5vh;
+    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner{
     }
 
-    .u-el-tabs .el-tabs__nav-scroll {
-        height: 5vh;
+    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner{
+        background-color: #47475B;
+        color: #FFFFFF;
+        height: 30px;
+        line-height: 30px;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 20%;
     }
 
-    .u-el-tabs .el-tabs__nav {
-        height: 5vh;
+    .u-tabs .el-tabs--card .el-tabs__header{
+        margin: 0;
+        border: 0;
+        border-image-width: 0;
+        height: 60px;
+        line-height: 60px;
+        font-size: 16px;
     }
 
-    .u-el-tabs .el-tabs__item {
-        height: 5vh;
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap{
+
     }
 
-    .u-el-tabs .el-tabs__content {
-        height: 95vh;
+    /*标签横道*/
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll{
+        padding: 0;
     }
 
-    .u-el-tabs .el-tab-pane {
+    /*所有标签*/
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav{
+        border-image-width: 0;
+        border-right-width: 0;
+        border-left-width: 0;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        border-top-width: 0;
+        background-color: ;
+    }
 
+    /*单标签*/
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav .el-tabs__item{
+        border-bottom-width: 0;
+        border-left-width: 1px;
+        padding-left: 20px;
+        padding-right: 20px;
+
+    }
+
+    .u-tabs .el-tabs--card .el-tabs__content{
+        margin: 0;
+        border: 0;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
 </style>

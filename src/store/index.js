@@ -15,7 +15,7 @@ Vue.use(Vuex);
 // }
 
 
-function indexWalker(indexConfig, indexStack, indices, route2index, optionMeta) {
+function indexWalker(indexConfig, indexStack, indices, menus, route2index, optionMeta) {
     for (let item of indexConfig) {
 
         indexStack.push(item['name']);
@@ -46,12 +46,13 @@ function indexWalker(indexConfig, indexStack, indices, route2index, optionMeta) 
         if (item['children'].length === 0) {
             indices[item['uid']] = Object.assign({}, item);
         } else {
-            indexWalker(item['children'], indexStack, indices, route2index, optionMeta);
+            menus[item['uid']] = Object.assign({}, item);
+            indexWalker(item['children'], indexStack, indices, menus, route2index, optionMeta);
         }
 
         indexStack.pop();
     }
-    return [indexConfig, indices, route2index]
+    return [indexConfig, indices, menus, route2index]
 }
 
 
@@ -78,6 +79,7 @@ let indexConfig = [
 
                 name: 'commit',
                 label: '通知批量下载样本',
+                loaded: true,
                 route: {
                     'name': 'VtCommit'
                 },
@@ -174,6 +176,7 @@ let indexConfig = [
             {
                 name: 'hc-basic-bar',
                 label: 'HighChart基本类型柱状图',
+                loaded: true,
                 route: {
                     'name': 'HcBasicBar',
                     params: {
@@ -186,13 +189,15 @@ let indexConfig = [
 ];
 let indexStack = [];
 let indices = {};
+let menus = {};
 let route2index = {};
-indexWalker(indexConfig, indexStack, indices, route2index, optionMeta);
+indexWalker(indexConfig, indexStack, indices, menus, route2index, optionMeta);
 
 export default new Vuex.Store({
     state: {
         'indexConfig': indexConfig,
         'indices': indices,
+        'menus': menus,
         'route2index': route2index,
         'selected': null,
     },
@@ -210,14 +215,14 @@ export default new Vuex.Store({
         //     let indexStack = [];
         //     let indices = {};
         //     let route2index = {};
-        //     return indexWalker(indexConfig, indexStack, indices, route2index)[1];
+        //     return indexWalker(indexConfig, indexStack, indices, menus, route2index)[1];
         // },
         // 'route2index': function(state){
         //     let indexConfig = JSON.parse(JSON.stringify(state.indexConfig));
         //     let indexStack = [];
         //     let indices = {};
         //     let route2index = {};
-        //     return indexWalker(indexConfig, indexStack, indices, route2index)[2];
+        //     return indexWalker(indexConfig, indexStack, indices, menus, route2index)[2];
         // },
     },
     watch: {
@@ -229,7 +234,7 @@ export default new Vuex.Store({
             let indexStack = [];
             let indices = {};
             let route2index = {};
-            indexWalker(indexConfig, indexStack, indices, route2index);
+            indexWalker(indexConfig, indexStack, indices, menus, route2index);
             this.indexConfig = indexConfig;
             // this.indices = indices;
             // this.route2index = route2index;

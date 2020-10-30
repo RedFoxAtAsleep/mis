@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="u-menu">
         <el-menu
                 :unique-opened="true"
                 :default-active="this.selected"
@@ -12,8 +12,6 @@
             </u-menu-item>
         </el-menu>
     </div>
-
-
 </template>
 
 <script>
@@ -54,9 +52,14 @@
     }
 </script>
 
-<style scoped>
-    .el-menu{
+<style>
+    .u-menu{
+
+    }
+    .u-menu .el-menu{
         border: 0;
+        color: #FFFFFF;
+        background-color: #47475B;
     }
 
 </style>

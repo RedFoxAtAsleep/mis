@@ -1,10 +1,12 @@
 <template>
-    <el-menu-item
-            v-bind:index="this.uid"
-            @click="activateTab"
-    >
-        <slot></slot>
-    </el-menu-item>
+    <div class="u-menu-end">
+        <el-menu-item
+                v-bind:index="this.uid"
+                @click="activateTab"
+        >
+            <slot></slot>
+        </el-menu-item>
+    </div>
 </template>
 <script>
     import {mapState, mapGetters, mapMutations} from 'vuex'
@@ -50,6 +52,6 @@
         },
     }
 </script>
-<style scoped>
-
+<style>
+    .u-menu-end{}
 </style>

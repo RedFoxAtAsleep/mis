@@ -1,24 +1,28 @@
 <template>
-    <el-container :style="window">
-        <el-aside :style="window_navigation">
-            <u-menu v-bind:items="this.indexConfig"></u-menu>
-        </el-aside>
-        <el-container>
-            <el-main :style="window_content">
-                <tabs></tabs>
-            </el-main>
+    <div class="navigation-index">
+        <el-container :style="window">
+            <el-aside :style="window_navigation">
+                <u-menu v-bind:items="this.indexConfig"></u-menu>
+            </el-aside>
+            <el-container>
+                <el-main :style="window_content">
+                    <tabs></tabs>
+                </el-main>
+            </el-container>
         </el-container>
-    </el-container>
+    </div>
 </template>
-<style scoped>
-    .el-container {
+<style>
+
+    .navigation-index{}
+
+    .navigation-index .el-container {
     }
-    .el-header {
-        background-color: #B3C0D1;
-        color: #333;
-        line-height: 60px;
+
+    .navigation-index .el-header {
     }
-    .el-aside{
+
+    .navigation-index .el-aside {
         /*border-right: solid 2px #000000;*/
     }
 
@@ -29,18 +33,30 @@
     import UMenu from "@/views/Navigation/UMenu";
 
     export default {
-        created(){
+        created() {
             this.window = {
                 width: '100vw',
                 height: '100vh',
                 margin: 0,
                 padding: 0,
+                border: 0,
             };
             this.window_navigation = {
-                'width': this.availWidth/4,
-                    'height': this.availHeight,
-                    'overflow': 'scroll'
+                'width': this.availWidth / 4,
+                'height': this.availHeight,
+                'overflow': 'scroll',
+                'background-color': "#47475B",
             };
+            this.window_content = {
+                'width': this.availWidth * 3 / 4,
+                'height': this.availHeight,
+                'overflow': 'scroll',
+                'background-color': "#FFFFFF",
+                margin: 0,
+                padding: 0,
+                border: 0,
+            }
+
         },
         data() {
             // do somethings
@@ -57,8 +73,7 @@
             ...mapState({
                 indexConfig: state => state.indexConfig,
             }),
-            ...mapGetters([
-            ]),
+            ...mapGetters([]),
             availHeight: function () {
                 return window.screen.availHeight;
             },
