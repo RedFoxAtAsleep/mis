@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import NavigationIndex from "@/views/Navigation/index.vue"
 import IframeIndex from "@/views/Iframe/index.vue"
 import JsonQuery from "@/views/JsonQuery.vue"
+import VtSubmitRequire from "@/views/VtSubmitRequire";
 import VtsSubmitRequire from "@/views/VtsSubmitRequire";
-import VtsSubmitRequireTest from "@/views/VtsSubmitRequireTest";
 import VtsDownloadPackage from "@/views/VtsDownloadPackage";
 import Page404 from "@/components/Page404.vue"
 // import Home from "@/views/Home.vue"
@@ -119,12 +119,12 @@ const routes = [
             {
                 path: 'vt-commit',
                 name: 'VtCommit',
-                component: VtsSubmitRequire
+                component: VtSubmitRequire
             },
             {
                 path: 'vt-commit-test',
                 name: 'VtCommitTest',
-                component: VtsSubmitRequireTest
+                component: VtsSubmitRequire
             },
             {
                 path: 'vt-query',

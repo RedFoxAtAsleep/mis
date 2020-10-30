@@ -20,11 +20,11 @@
 import apiClient from '@/api/api';
 
 export default {
-  name: "VtsSubmitRequireTest",
+  name: "VtSubmitRequire",
   data() {
     return {
       data: {
-        'mail': '@intra.nsfocus.com',
+        'mail': '',
         'hash_list': ''
       },
       hash_list: ''
@@ -38,7 +38,7 @@ export default {
       const form = new FormData();
       form.append("mail", this.data.mail || 'zhaojinhui@intra.nsfocus.com');
       form.append("hash_list", this.hash_list.raw);
-      apiClient.submitHashListV2(form, {
+      apiClient.submitHashList(form, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

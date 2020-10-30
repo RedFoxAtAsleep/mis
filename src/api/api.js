@@ -28,11 +28,23 @@ export const downloadPackage = function (config) {
     return vtClient.downloadPackage(config)  // promise
 };
 
+export const obj2table = function(obj, col_k, col_v){
+    let rows = [];
+    for(let k in obj){
+        let tmp = {}
+        tmp[col_k] = k;
+        tmp[col_v] = obj[k]
+        rows.push(tmp)
+    }
+    return rows
+}
+
 export default {
     readLinks,
     post,
     simpleQuery,
     submitHashList,
     submitHashListV2,
-    downloadPackage
+    downloadPackage,
+    obj2table
 }
