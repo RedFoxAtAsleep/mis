@@ -5,7 +5,7 @@
         <el-input type="mail" v-model="data.mail"></el-input>
       </el-form-item>
       <el-form-item label="哈希列表">
-        <el-upload class="upload-demo left" :limit="1" ref="upload" action="" :on-preview="handlePreview" :on-remove="handleRemove" :auto-upload="false" :on-change="onChange">
+        <el-upload class="upload-demo left" :file-list="files" ref="upload" action="" :on-preview="handlePreview" :on-remove="handleRemove" :auto-upload="false" :on-change="onChange">
           <el-button slot="trigger"  type="default">选择哈希别表文件</el-button>
           <div slot="tip" class="el-upload__tip"></div>
         </el-upload>
@@ -44,14 +44,14 @@ export default {
     return {
       data: {
         'mail': '@intra.nsfocus.com',
-        'hash_list': ''
+        'hash_list': '',
       },
       res:{
         'data':{
           'sample':{}
         }
       },
-      hash_list: '',
+      files: [],
       col2label:{
         sample: '样本哈希值',
         description: '样本哈希检查结果'
@@ -97,7 +97,7 @@ export default {
       const FormData = require('form-data');
       const form = new FormData();
       form.append("mail", this.data.mail || 'zhaojinhui@intra.nsfocus.com');
-      form.append("hash_list", this.hash_list.raw);
+      form.append("hash_list", this.data.hash_list.raw);
       api.submitHashListV2(form, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -107,8 +107,9 @@ export default {
       }).catch(err=>console.exception(err));
     },
     onChange: function (file, fileList){
-      console.log(this.hash_list, fileList)
-      this.hash_list = file
+      console.log(this.data.hash_list, fileList)
+      this.data.hash_list = file;
+      this.files = fileList.slice(-1);
     },
     handlePreview: function(){},
     handleRemove: function(){}

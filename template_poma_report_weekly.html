@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .container{}
+    div.container > ol > li > span:first-child{
+        font-weight: bold;
+    }
+    div.container > ol > li > ul > li{
+        list-style: None;
+    }
+    div.container > ol > li > ul > li::before{
+        content: "□"; color: green;
+        display: inline-block; width: 1em;
+        font-size: 24px;
+        font-weight: bolder;
+        margin-left: -2em
+    }
+</style>
+<body>
+<div class="container">
+    <ol>
+        <li>
+            <span>POMA已分析样本总量分析</span>
+            <ul>
+                <li>
+                    <span>于维护状态的服务器台数统计如下：（总计59台）</span>
+                    <ul>
+                        <li>IDC服务器（共8台）：4台云主机 + 2台ES缓存+2台VMTAC</li>
+                        <li>青东（共14台）：2台NameNode节点+11台DataNode节点+1台Client节点</li>
+                        <li>益泰（共36台）：1台专用分析服务器+1台Dashboard服务器+28台TAC服务器+3台Detux服务器+3台Docker版TAC服务器</li>
+                        <li>外借状态（共1台）：1台TAC服务器（借给滑亚康）</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <span>POMA已分析样本总量分析</span>
+            <ul>
+                <li>投入POMA分析的总样本量(截止统计日期)： {{poma_total}}亿 （本周新增{{poma_week_total}}万，其中：{{a}}% 来自VirusTotal）</li>
+                <li>投入POMA分析的恶意样本量(截止统计日期) ：{{poma_malware_total}}亿（占总样本量的{{b}}%，本周新增{{poma_week_malware_total}}万）</li>
+            </ul>
+        </li>
+        <li>
+            <span>VirusTotal样本分析</span> 
+            <ul>
+                <li>alias_ poma_virustotal_report索引总量(截止统计日期)： {{vt_total}}（约{{vt_total}}亿）</li>
+                <li>{{year}}年{{last_week}}周 VirusTotal新增样本： {{vt_week_total}}（已去重）</li>
+                <li>{{year}}年{{last_week}}周 VirusTotal新增样本恶意率：{{c}}%</li>
+                <li>{{year}}年{{last_week}}周 回传到国内的VirusTotal样本总数为： {{vt_back_cn}}（全部为恶意，未去重 ）</li>
+            </ul>
+        </li>
+        <li>
+            <span>Detux分析统计</span>
+            <ul>
+                <li>总分析样本量：{{detux_total}}</li>
+                <li>2{{year}}年{{last_week}}周 已分析ELF样本： {{detux_week_total}}个，其中，有关联IP的样本有：{{detux_week_related_ip}}个</li>
+            </ul>
+        </li>
+        <li>
+            <span>Hadoop集群情况</span>
+            <ul>
+                <li>Hadoop样本文件存储情况：已使用 {{hdfs_used}}T/总存储空间 {{hdfs_total}} T（磁盘使用率达{{y}}%）</li>
+            </ul>
+        </li>
+    </ol>
+</div>
+</body>
+</html>

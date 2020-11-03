@@ -48,6 +48,18 @@ export default {
     return {
       json: {},
       caches:{
+        'user_download_times_rank':{
+          "select":["mail", "id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
+          "from":"require",
+          "where": {},
+          "group_by":["mail"],
+          "aggregate":["id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
+          "order_by": ["-id__count"],
+          "offset": 0,
+          "limit": 10,
+          "timezone_offset": new Date().getTimezoneOffset(),
+          "datetime_format": "yyyy-MM-dd"
+        },
         'require_daily':{
           "row_extension": ["created__year", "created__month", "created__week", "created__day"],
           "select":["created__year", "created__month", "created__day", "id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
