@@ -199,7 +199,7 @@ export default new Vuex.Store({
         'indices': indices,
         'menus': menus,
         'route2index': route2index,
-        'selected': null,
+        'selected': '',
     },
     getters: {
         'indexConfigHash': function (state) {

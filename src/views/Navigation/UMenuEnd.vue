@@ -24,22 +24,25 @@
             }),
             ...mapGetters([
             ]),
-            ...mapMutations([
-                'inverseLoaded',
-            ])
         },
-        watch: {},
         methods: {
+            ...mapMutations({
+                inverseLoaded: 'inverseLoaded',
+                select:  'select'
+            }),
             activateTab(){
+                console.log(uid);
                 let uid = this.uid;
                 let index = this.indices[uid];
                 let isIframeView = 'src' in index;
                 let isSingletonTabView = index['singleton'];
                 if(isSingletonTabView){
                     if(!index['loaded']){
-                        this.$store.commit('inverseLoaded', uid);
+                        this.inverseLoaded(uid);
+                        // this.$store.commit('inverseLoaded', uid);
                     }
-                    this.$store.commit('select', uid);
+                    this.select(uid);
+                    // this.$store.commit('select', uid);
                     // this.$router.push(index['route']).catch();
                     this.$router.push(index['route']).catch(err => {console.log(err)})
                 }
