@@ -176,6 +176,12 @@ const routes = [
                 props: true,
                 component: () => import('@/views/HcBasicBar'),
             },
+            {
+                path: '',
+                name: 'MockDashboard',
+                props: true,
+                component: () => import('@/views/MockDashboard'),
+            },
         ]
     },
     {

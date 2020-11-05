@@ -1,13 +1,14 @@
 import Vue from "vue";
 import axios from 'axios'
-axios.defaults.baseURL = 'http://mockjs.com/api'; // 设置默认请求的url
+axios.defaults.baseURL = 'http://mockjs.com/api';
+// 设置默认请求的url，添加端口号可以直接避免同源策略
 Vue.prototype.$http = axios;
 
 // 使用 Mock
 const Mock = require('mockjs');
-const Random = Mock.Random; // 获取random对象，随机生成各种数据，具体请翻阅文档
+// const Random = Mock.Random; // 获取random对象，随机生成各种数据，具体请翻阅文档
 const domain = 'http://mockjs.com/api'; // 定义默认域名，随便写
-const code = 200; // 返回的状态码
+// const code = 200; // 返回的状态码
 const data = Mock.mock({
     // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
     'list|1-10': [{
@@ -17,41 +18,44 @@ const data = Mock.mock({
 });
 console.log(data);
 
-// 随机生成文章数据
-const postData = req => {
-    console.log('req ', req);  // 请求体，用于获取参数
-    let posts = [];  // 用于存放文章数据的数组
-    for (let i = 0; i < 10; i++) {
-        let post = {
-            title: Random.csentence(10, 25), // 随机生成长度为10-25的标题
-            author: Random.cname(), // 随机生成名字
-            date: Random.date() + ' ' + Random.time() // 随机生成年月日 + 时间
-        };
-        posts.push(post)
-    }
-    // 返回状态码和文章数据posts
-    return {
-        code,
-        posts
-    }
+const getRecordVtsSampleStatus = req => {
+    console.log(req);
+
+    // let kv = {};s
+    // for(let record of records){
+    //     kv[record['hash']] = record['status']
+    // }
+    return Mock.mock({
+        'data|5':[{
+            'hash': /[a-z0-9]{32}/,
+            'status|1': ['success','fail','pending'],
+        }]
+    });
 };
-Mock.mock(`${domain}/posts`, 'get', postData);
+// Mock.mock(`${domain}/news`, 'post', produceNewsData);
 
-
-const produceNewsData = function () {
-    let newsList = [];
-    for (let i = 0; i < 20; i++) {
-        let newNewsObject = {
-            title: Random.ctitle(), //  Random.ctitle( min, max ) 随机产生一个中文标题，长度默认在3-7之间
-            content: Random.cparagraph(), // Random.cparagraph(min, max) 随机生成一个中文段落，段落里的句子个数默认3-7个
-            createdTime: Random.date() // Random.date()指示生成的日期字符串的格式,默认为yyyy-MM-dd；
-        };
-        newsList.push(newNewsObject)
-    }
-
-    return newsList
+const url = {
+    getRecordVtsDownload: `${domain}/vts/download`,
+    getRecordVtsSampleStatus: `${domain}/vts/type`,
 };
 
-Mock.mock(`${domain}/news`, 'post', produceNewsData);
+Mock.mock(
+    url.getRecordVtsDownload,
+    'get',
+    {
+        'data|4':[{
+            'id|+1': 1,
+            'mail|+1':['zhaojinhui', 'caili', 'songyitian', 'qinweichao'],
+            // 'hash|': /[a-z0-9]{32}/,
+            'count|10-20': 1,
+            'times|1-10':1,
+        }]
+    });
+Mock.mock(url.getRecordVtsSampleStatus, 'get',getRecordVtsSampleStatus());
 
+export default {};
+
+// Mock.mock(rurl, rtype, template)关联url、http方法、模板或数据
+// 在mock.js中挂载$http，则可在具体的组件中调用$http发起/请求
+// 调用axios发起请求
 

@@ -37,7 +37,7 @@ export const obj2table = function(obj, col_k, col_v){
         rows.push(tmp)
     }
     return rows
-}
+};
 
 export default {
     readLinks,

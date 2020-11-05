@@ -183,7 +183,17 @@ let indexConfig = [
                         'id': 'component-hc-basic-bar'
                     }
                 },
-            }
+            },
+            {
+                name: 'mock-dashboard',
+                label: '模拟数据',
+                route: {
+                    'name': 'MockDashboard',
+                    params: {
+                        'id': 'component-mock-dashboard'
+                    }
+                },
+            },
         ]
     },
 ];

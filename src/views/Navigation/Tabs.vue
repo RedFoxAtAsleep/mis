@@ -83,17 +83,16 @@
                     }
                 }
 
+                // 新增或减少tab是会重新计算需要加载的tab
+                // 但是tmp的顺序并非是tab的先后顺序，而是Object.keys中的顺序
+                // init 场景
+                // activate 场景
+                // remove 场景
                 console.log(this.selectedLocal, this.selectedGlobal);
                 console.log(tmp);
                 if(!this.selectedGlobal && tmp){
                     this.select(tmp[tmp.length-1]['uid'])
                 }
-                // 新增或减少tab是会重新计算需要加载的tab
-                // 但是tmp的顺序并非是tab的先后顺序，而是Object.keys中的顺序
-                // init 场景
-
-                // activate 场景
-                // remove 场景
 
                 return tmp
             },
