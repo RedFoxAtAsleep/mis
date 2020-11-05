@@ -17,9 +17,8 @@
         </el-form-item>
         <el-button @click="initChart">查询</el-button>
       </el-form>
-      <highcharts  :options="chartOptions"></highcharts>
-
     </div>
+    <highcharts  :options="chartOptions"></highcharts>
   </div>
 </template>
 

@@ -136,19 +136,19 @@ export default {
   },
   methods: {
     rows2cols(objs){
-      console.table(objs)
-      let kvs = {}
+      console.table(objs);
+      let kvs = {};
       if(objs.length === 0){
         return kvs
       }
       if(Object.keys(objs[0]).length === 0){
         return kvs
       }
-      let ks = Object.keys(objs[0])
-      ks.forEach(k=>{kvs[k]=[]})
+      let ks = Object.keys(objs[0]);
+      ks.forEach(k=>{kvs[k]=[]});
       objs.forEach(obj=>{
         ks.forEach(k=>{kvs[k].push(obj[k])})
-      })
+      });
       return kvs
     },
     initChart() {

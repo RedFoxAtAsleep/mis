@@ -13,10 +13,9 @@
 
             }
         },
-        created(){
-            axios.get('http://mockjs.com/api/vts/download').then((res) => {
-                console.log('Record Like Mock Data', res);
-            }).catch((err)=>{console.log(err)});
+        async created(){
+            let res = await axios.get('http://mockjs.com/api/vts/download');
+            console.table('Record Like Mock Data', res.data);
 
             this.$http.get('/vts/type').then(res=>{
                 console.log('Kv Like Mock Data', res)

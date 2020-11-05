@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import NavigationIndex from "@/views/Navigation/index.vue"
 import IframeIndex from "@/views/Iframe/index.vue"
 import JsonQuery from "@/views/JsonQuery.vue"
-import VtSubmitRequire from "@/views/VtSubmitRequire";
+// import VtSubmitRequire from "@/views/VtSubmitRequire";
 import VtsSubmitRequire from "@/views/VtsSubmitRequire";
 import VtsDownloadPackage from "@/views/VtsDownloadPackage";
 import Page404 from "@/components/Page404.vue"
@@ -117,13 +117,8 @@ const routes = [
         props: true,
         children: [
             {
-                path: 'vt-commit',
-                name: 'VtCommit',
-                component: VtSubmitRequire
-            },
-            {
-                path: 'vt-commit-test',
-                name: 'VtCommitTest',
+                path: 'vt-submit',
+                name: 'VtSubmit',
                 component: VtsSubmitRequire
             },
             {

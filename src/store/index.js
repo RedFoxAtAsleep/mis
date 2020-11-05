@@ -73,35 +73,20 @@ let optionMeta = {
 let indexConfig = [
     {
         name: 'vt',
-        label: 'VT样本下载',
+        label: 'VirusTotal批量下载',
         children: [
             {
 
-                name: 'commit',
-                label: '通知批量下载样本',
+                name: 'submit',
+                label: '通知下载',
                 loaded: true,
                 route: {
-                    'name': 'VtCommit'
-                },
-            },
-            {
-
-                name: 'commit-test',
-                label: '测试页面：通知批量下载样本',
-                route: {
-                    'name': 'VtCommitTest'
-                },
-            },
-            {
-                name: 'query',
-                label: 'VT信息查询',
-                route: {
-                    'name': 'VtQuery'
+                    'name': 'VtSubmit'
                 },
             },
             {
                 name: 'download',
-                label: '下载批量样本包',
+                label: '获取样本',
                 route: {
                     'name': 'VtDownload',
                     'params': {
@@ -110,63 +95,77 @@ let indexConfig = [
                 },
             },
             {
-                name: 'statistic-require',
-                label: '每日样本下载',
-                route: {
-                    name: 'VtStatisticRequire'
-                }
-            },
-            {
-                name: 'statistic-apikey',
-                label: '每日API Key使用',
-                route: {
-                    name: 'VtStatisticApiKey'
-                }
-            },
-            {
-                name: 'statistic-sample',
-                label: '本地样本分类',
-                route: {
-                    name: 'VtStatisticSample'
-                }
-            },
-            {
-                name: 'admin',
-                label: '管理面板',
-                children: [
+                name: 'info',
+                label: '下载情况',
+                children:[
                     {
-                        name: 'admin',
-                        label: 'Admin面板',
-                        type: 'link',
-                        src: 'http://10.51.10.68:8000/admin',
-                    },
-                    {
-                        name: 'supervisor',
-                        label: 'Supervisor面板',
-                        type: 'link',
-                        src: 'http://10.51.10.68:9001/',
-                    },
-                    {
-                        name: 'flower',
-                        label: 'Flower面板',
-                        type: 'link',
-                        src: 'http://10.51.10.68:5555/',
-                    },
-                    {
-                        name: 'flower-test',
-                        label: 'Flower面板',
-                        type: 'iframe',
-                        src: 'http://10.51.10.68:5555/',
-                        singleton: true,
+                        name: 'query',
+                        label: 'VT信息查询',
                         route: {
-                            'name': 'NavigationIframe',
-                            'params': {
-                                uid: 'vt-admin-flower-test'
-                            }
+                            'name': 'VtQuery'
                         },
+                    },
+                    {
+                        name: 'statistic-require',
+                        label: '每日样本下载',
+                        route: {
+                            name: 'VtStatisticRequire'
+                        }
+                    },
+                    {
+                        name: 'statistic-apikey',
+                        label: '每日API Key使用',
+                        route: {
+                            name: 'VtStatisticApiKey'
+                        }
+                    },
+                    {
+                        name: 'statistic-sample',
+                        label: '本地样本分类',
+                        route: {
+                            name: 'VtStatisticSample'
+                        }
                     },
                 ]
             },
+
+        ]
+    },
+    {
+        name: 'admin',
+        label: '管理面板',
+        children: [
+            {
+                name: 'admin',
+                label: 'Admin面板',
+                type: 'link',
+                src: 'http://10.51.10.68:8000/admin',
+            },
+            {
+                name: 'supervisor',
+                label: 'Supervisor面板',
+                type: 'link',
+                src: 'http://10.51.10.68:9001/',
+            },
+            {
+                name: 'flower',
+                label: 'Flower面板',
+                type: 'link',
+                src: 'http://10.51.10.68:5555/',
+            },
+            // {
+            //     name: 'flower-test',
+            //     label: 'Flower面板',
+            //     type: 'iframe',
+            //     src: 'http://10.51.10.68:5555/',
+            //     singleton: true,
+            //     route: {
+            //         'name': 'NavigationIframe',
+            //         'params': {
+            //             uid: 'vt-admin-flower-test'
+            //         }
+            //     },
+            // },
         ]
     },
     {
@@ -176,7 +175,6 @@ let indexConfig = [
             {
                 name: 'hc-basic-bar',
                 label: 'HighChart基本类型柱状图',
-                loaded: true,
                 route: {
                     'name': 'HcBasicBar',
                     params: {
