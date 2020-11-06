@@ -17,13 +17,13 @@
         </el-form-item>
         <el-button @click="initChart">查询</el-button>
       </el-form>
-      <highcharts  :options="chartOptions"></highcharts>
-      <el-card class="box-card">
-        <div v-for="y in ['id__count', 'count__sum']" :key="y" class="text item">
-          <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
-        </div>
-      </el-card>
     </div>
+    <highcharts  :options="chartOptions"></highcharts>
+    <el-card class="box-card">
+      <div v-for="y in ['id__count', 'count__sum']" :key="y" class="text item">
+        <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -136,19 +136,19 @@ export default {
   },
   methods: {
     rows2cols(objs){
-      console.table(objs)
-      let kvs = {}
+      console.table(objs);
+      let kvs = {};
       if(objs.length === 0){
         return kvs
       }
       if(Object.keys(objs[0]).length === 0){
         return kvs
       }
-      let ks = Object.keys(objs[0])
-      ks.forEach(k=>{kvs[k]=[]})
+      let ks = Object.keys(objs[0]);
+      ks.forEach(k=>{kvs[k]=[]});
       objs.forEach(obj=>{
         ks.forEach(k=>{kvs[k].push(obj[k])})
-      })
+      });
       return kvs
     },
     initChart() {

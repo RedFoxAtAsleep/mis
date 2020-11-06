@@ -3,6 +3,6 @@ import HighchartsVue from 'highcharts-vue'
 import Highcharts from 'highcharts'
 import exportingInit from 'highcharts/modules/exporting'
 
-exportingInit(Highcharts)
+exportingInit(Highcharts);
 
 Vue.use(HighchartsVue, {Highcharts});

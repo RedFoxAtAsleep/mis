@@ -22,7 +22,7 @@
                     :label="index['label']"
                     :name="index['uid']"
                     :closable="index['closable']">
-                <keep-alive >
+                <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
             </el-tab-pane>
@@ -36,7 +36,7 @@
         name: "Tabs",
         data() {
             return {
-                selectedLocal: this.selectedGlobal,
+                selectedLocal: '',
             }
         },
         watch: {
@@ -44,11 +44,10 @@
             'selectedGlobal': function (now, pre) {
                 // 以点击标签页以外的方式切换标签页
                 // 全局变 > 局部变
-                console.log('selectedGlobal',now, pre);
-                if(now in this.indices){
+                console.log('selectedGlobal', now, pre);
+                if (now in this.indices) {
                     this.selectedLocal = now;
-                }
-                else{
+                } else {
                     this.selectedLocal = ''
                 }
 
@@ -57,7 +56,7 @@
                 // 在监听x中自然不能使用x，而是使用x_now和x_pre
                 // 在以点击标签页切换标签页的情况下触发
                 // 局部变 > 全局变
-                console.log('selectedLocal',now, pre);
+                console.log('selectedLocal', now, pre);
                 this.$store.commit('select', now);
                 if (now in this.indices) {
                     this.$router.push(this.indices[now]['route']).then().catch();
@@ -68,45 +67,52 @@
 
         },
         computed: {
-            loadedIndices: function(){
-                let indices = this.indices;
-                let tmp = [];
-                for (let uid of Object.getOwnPropertyNames(indices)) {
-                    if (indices[uid]['loaded'] === true) {
-                        tmp.push(indices[uid]);
-                    }
-                }
-                tmp.forEach((index)=>{
-                    console.log('tabs index', index);
-                    this.$store.commit('select',index['uid']);
-                });
-                return tmp
-            },
-            breadcrumb:function(){
-                let tmp = [];
-                if(!(this.selectedGlobal in this.indices)){
-                    return tmp
-                }
-                let path = this.indices[this.selectedGlobal]['path'];
-                for(let n=1;n<=path.length;n++){
-                    tmp.push(path.slice(0,n).join('-'))
-                }
-                return tmp
-            },
-      ...mapState({
+            ...mapState({
                 // indices: state => state.indices,
                 selectedGlobal: state => state.selected,
                 indices: state => state.indices,
                 menus: state => state.menus,
             }),
-            ...mapGetters([
-            ]),
-            ...mapMutations([
-                'inverseLoaded',
-                'select',
-            ])
+            ...mapGetters([]),
+            loadedIndices: function () {
+                let indices = this.indices;
+                let tmp = [];
+                for (let uid of Object.keys(indices)) {
+                    if (indices[uid]['loaded'] === true) {
+                        tmp.push(indices[uid]);
+                    }
+                }
+
+                // 新增或减少tab是会重新计算需要加载的tab
+                // 但是tmp的顺序并非是tab的先后顺序，而是Object.keys中的顺序
+                // init 场景
+                // activate 场景
+                // remove 场景
+                console.log(this.selectedLocal, this.selectedGlobal);
+                console.log(tmp);
+                if(!this.selectedGlobal && tmp){
+                    this.select(tmp[tmp.length-1]['uid'])
+                }
+
+                return tmp
+            },
+            breadcrumb: function () {
+                let tmp = [];
+                if (!(this.selectedGlobal in this.indices)) {
+                    return tmp
+                }
+                let path = this.indices[this.selectedGlobal]['path'];
+                for (let n = 1; n <= path.length; n++) {
+                    tmp.push(path.slice(0, n).join('-'))
+                }
+                return tmp
+            },
         },
         methods: {
+            ...mapMutations({
+                inverseLoaded: 'inverseLoaded',
+                select: 'select',
+            }),
             removeTab(uid) {
                 if (this.selectedLocal === uid) {
                     for (let i in this.loadedIndices) {
@@ -128,20 +134,20 @@
     }
 </script>
 <style>
-    .u-tabs{
+    .u-tabs {
     }
 
-    .u-tabs .el-tabs--card{
+    .u-tabs .el-tabs--card {
     }
 
-    .u-tabs .el-breadcrumb .el-breadcrumb__item{
+    .u-tabs .el-breadcrumb .el-breadcrumb__item {
 
     }
 
-    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner{
+    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner {
     }
 
-    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner{
+    .u-tabs .el-breadcrumb .el-breadcrumb__item .el-breadcrumb__inner {
         background-color: #47475B;
         color: #FFFFFF;
         height: 30px;
@@ -151,7 +157,7 @@
         border-radius: 20%;
     }
 
-    .u-tabs .el-tabs--card .el-tabs__header{
+    .u-tabs .el-tabs--card .el-tabs__header {
         margin: 0;
         border: 0;
         border-image-width: 0;
@@ -160,17 +166,17 @@
         font-size: 16px;
     }
 
-    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap{
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap {
 
     }
 
     /*标签横道*/
-    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll{
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll {
         padding: 0;
     }
 
     /*所有标签*/
-    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav{
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav {
         border-image-width: 0;
         border-right-width: 0;
         border-left-width: 0;
@@ -181,7 +187,7 @@
     }
 
     /*单标签*/
-    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav .el-tabs__item{
+    .u-tabs .el-tabs--card .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll .el-tabs__nav .el-tabs__item {
         border-bottom-width: 0;
         border-left-width: 1px;
         padding-left: 20px;
@@ -189,7 +195,7 @@
 
     }
 
-    .u-tabs .el-tabs--card .el-tabs__content{
+    .u-tabs .el-tabs--card .el-tabs__content {
         margin: 0;
         border: 0;
         padding-left: 20px;

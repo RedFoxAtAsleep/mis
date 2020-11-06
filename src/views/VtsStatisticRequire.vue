@@ -17,16 +17,16 @@
         </el-form-item>
         <el-button @click="initChart">查询</el-button>
       </el-form>
-      <highcharts  :options="chartOptions"></highcharts>
-      <el-card class="box-card">
-        <div v-for="y in ys" :key="y" class="text item">
-          <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
-        </div>
-<!--        <div v-for="y in ['id__count', 'origin_size__sum', 'checked_size__sum', 'collected_size__sum']" :key="y" class="text item">-->
-<!--          <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>-->
-<!--        </div>-->
-      </el-card>
     </div>
+    <highcharts  :options="chartOptions"></highcharts>
+    <el-card class="box-card">
+      <div v-for="y in ys" :key="y" class="text item">
+        <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
+      </div>
+      <!--        <div v-for="y in ['id__count', 'origin_size__sum', 'checked_size__sum', 'collected_size__sum']" :key="y" class="text item">-->
+      <!--          <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>-->
+      <!--        </div>-->
+    </el-card>
   </div>
 </template>
 
