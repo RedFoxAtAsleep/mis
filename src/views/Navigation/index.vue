@@ -28,7 +28,7 @@
 
 </style>
 <script>
-    import {mapState, mapGetters} from "vuex";
+    import {mapState, mapGetters, mapMutations} from "vuex";
     import Tabs from "@/views/Navigation/Tabs";
     import UMenu from "@/views/Navigation/UMenu";
 
@@ -72,6 +72,10 @@
         computed: {
             ...mapState({
                 indexConfig: state => state.indexConfig,
+                indices: state => state.indices,
+                menus: state => state.menus,
+                route2index: state => state.route2index,
+                selected: state => state.selected,
             }),
             ...mapGetters([]),
             availHeight: function () {
@@ -79,6 +83,21 @@
             },
             availWidth: function () {
                 return window.screen.availWidth;
+            }
+        },
+        methods:{
+            ...mapMutations([
+                'select',
+                'loadArea'
+            ])
+        },
+        watch:{
+            $route: function (now, pre) {
+                console.log('route watch', now, pre);
+                if(now.name in this.route2index){
+                    this.loadArea(this.route2index[now.name]);
+                    this.select(this.route2index[now.name]);
+                }
             }
         },
         components: {

@@ -254,6 +254,9 @@ export default new Vuex.Store({
             console.log(state, uid);
             state.indices[uid]['loaded'] = !state.indices[uid]['loaded']
         },
+        loadArea(state, uid) {
+            state.indices[uid]['loaded'] = true;
+        },
         select(state, uid) {
             state['selected'] = uid;
         }
