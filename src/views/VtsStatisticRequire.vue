@@ -1,31 +1,31 @@
 <template>
   <div>
-    <div>
-      <el-form :inline="true" ref="param" :model="param" label-width="100px">
-        <el-form-item label="时间范围">
-          <el-date-picker
-              type="daterange"
-              placeholder="选择日期"
-              v-model="param.created_range"
-              value-format="yyyy-MM-dd"
-              format="yyyy 年 MM 月 dd 日"
-              range-separator="至"
-              :picker-options="pickerOptions"
-          >
-            style="width: 100%;">
-          </el-date-picker>
-        </el-form-item>
-        <el-button @click="initChart">查询</el-button>
-      </el-form>
-    </div>
-    <highcharts  :options="chartOptions"></highcharts>
     <el-card class="box-card">
+
+      <div>
+        <el-form :inline="true" ref="param" :model="param" label-width="100px">
+          <el-form-item label="时间范围">
+            <el-date-picker
+                type="daterange"
+                placeholder="选择日期"
+                v-model="param.created_range"
+                value-format="yyyy-MM-dd"
+                format="yyyy 年 MM 月 dd 日"
+                range-separator="至"
+                :picker-options="pickerOptions"
+            >
+              style="width: 100%;">
+            </el-date-picker>
+          </el-form-item>
+          <el-button @click="initChart">查询</el-button>
+        </el-form>
+      </div>
+
       <div v-for="y in ys" :key="y" class="text item">
         <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
       </div>
-      <!--        <div v-for="y in ['id__count', 'origin_size__sum', 'checked_size__sum', 'collected_size__sum']" :key="y" class="text item">-->
-      <!--          <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>-->
-      <!--        </div>-->
+
+      <highcharts  :options="chartOptions"></highcharts>
     </el-card>
   </div>
 </template>

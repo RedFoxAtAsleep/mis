@@ -4,8 +4,11 @@
       <el-form-item label="邮箱">
         <el-input v-model="param.mail"></el-input>
       </el-form-item>
-      <el-form-item label="MD5">
+      <el-form-item label="原列表MD5">
         <el-input v-model="param.checked_md5"></el-input>
+      </el-form-item>
+      <el-form-item label="VT列表MD5">
+        <el-input v-model="param.origin_md5"></el-input>
       </el-form-item>
       <el-form-item label="通知下载日期">
         <el-date-picker
@@ -35,56 +38,18 @@
           width="150">
       </el-table-column>
 
-      <el-table-column
-          key="report"
-          prop="report"
-          :label="field2label['report']"
-          width="150">
-        <template slot-scope="scope">
-          <el-popover
-              placement="bottom"
-              title="标题"
-              width="200"
-              trigger="click"
-              :content="JSON.stringify(scope.row.report)">
-            <el-tag
-                slot="reference"
-                :type="scope.row.report ? 'success' : 'info'"
-                disable-transitions>
-              {{scope.row.report? 'report' : 'missed'}}
-            </el-tag>
-          </el-popover>
-        </template>
-      </el-table-column>
-
-
 <!--      <el-table-column-->
 <!--          key="report"-->
 <!--          prop="report"-->
 <!--          :label="field2label['report']"-->
 <!--          width="150">-->
 <!--        <template slot-scope="scope">-->
-
 <!--          <el-popover-->
 <!--              placement="bottom"-->
 <!--              title="标题"-->
 <!--              width="200"-->
 <!--              trigger="click"-->
 <!--              :content="JSON.stringify(scope.row.report)">-->
-<!--            <el-table :data="kv2rows(scope.row.report ||{},'sample_hash', 'sample_status')">-->
-<!--              <el-table-column-->
-<!--                  key="sample_hash"-->
-<!--                  prop="sample_hash"-->
-<!--                  label="样本哈希"-->
-<!--              >-->
-<!--              </el-table-column>-->
-<!--              <el-table-column-->
-<!--                  key="sample_status"-->
-<!--                  prop="sample_status"-->
-<!--                  label="样本状态"-->
-<!--              >-->
-<!--              </el-table-column>-->
-<!--            </el-table>-->
 <!--            <el-tag-->
 <!--                slot="reference"-->
 <!--                :type="scope.row.report ? 'success' : 'info'"-->
@@ -92,7 +57,6 @@
 <!--              {{scope.row.report? 'report' : 'missed'}}-->
 <!--            </el-tag>-->
 <!--          </el-popover>-->
-
 <!--        </template>-->
 <!--      </el-table-column>-->
 
@@ -121,12 +85,15 @@ export default {
       param: {
         mail: 'zhaojinhui@intra.nsfocus.com',
         checked_md5: '',
+        origin_md5: '',
         created_range: ['', ''],
       },
       field2label: {
         "created": "通知下载时间",
+        "note": "备注",
         "collected": "下载完成时间",
-        "checked_md5": "经过滤的哈希列表文件哈希值",
+        "origin_md5": "原列表哈希值",
+        "checked_md5": "VT列表哈希值",
         "status": "下载状态",
         "final_status": "最终下载状态",
         "report": "下载样本报告"
@@ -168,14 +135,16 @@ export default {
   computed: {
     queryBody: function () {
       return {
-        "select": ["created", "collected", "checked_md5", "status", "final_status", "report"],
+        "select": ["origin_md5", "checked_md5", "note", "status", "final_status", "created", "collected"],
         "from": "require",
         "where": {
           "created__gte": this.param.created_range[0],
           "created__lt": this.param.created_range[1],
           "mail": this.param.mail,
           "checked_md5__contains": this.param.checked_md5,
+          "origin_md5__contains": this.param.origin_md5,
           "final_status__in": ["pending", "success"],
+          "target__in": ["package_vt", "package"],
         },
         "group_by": [],
         "aggregate": [],

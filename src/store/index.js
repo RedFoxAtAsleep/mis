@@ -72,25 +72,34 @@ let optionMeta = {
 
 let indexConfig = [
     {
-        name: 'vt',
+        name: 'vts',
         label: 'VirusTotal批量下载',
         children: [
             {
 
                 name: 'submit',
-                label: '通知下载',
+                label: '提交请求',
                 loaded: true,
                 route: {
-                    'name': 'VtSubmit'
+                    'name': 'VtsSubmit'
                 },
             },
             {
                 name: 'download',
-                label: '获取样本',
+                label: '下载样本',
                 route: {
-                    'name': 'VtDownload',
+                    'name': 'VtsDownload',
                     'params': {
                         mail: 'all'
+                    }
+                },
+            },
+            {
+                name: 'dashboard',
+                label: '统计分析',
+                route: {
+                    'name': 'VtsDashboard',
+                    'params': {
                     }
                 },
             },
@@ -102,28 +111,28 @@ let indexConfig = [
                         name: 'query',
                         label: 'VT信息查询',
                         route: {
-                            'name': 'VtQuery'
+                            'name': 'VtsQuery'
                         },
                     },
                     {
                         name: 'statistic-require',
                         label: '每日样本下载',
                         route: {
-                            name: 'VtStatisticRequire'
+                            name: 'VtsStatisticRequire'
                         }
                     },
                     {
                         name: 'statistic-apikey',
                         label: '每日API Key使用',
                         route: {
-                            name: 'VtStatisticApiKey'
+                            name: 'VtsStatisticApiKey'
                         }
                     },
                     {
                         name: 'statistic-sample',
                         label: '本地样本分类',
                         route: {
-                            name: 'VtStatisticSample'
+                            name: 'VtsStatisticSample'
                         }
                     },
                 ]

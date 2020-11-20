@@ -67,6 +67,11 @@
         color: #FFFFFF;
     }
 
+    .u-menu-item a.u-menu-link {
+      color: #FFFFFF;
+      text-decoration:none;
+    }
+
     .u-menu-item a.u-menu-link:link {
         color: #FFFFFF;
         text-decoration:none;

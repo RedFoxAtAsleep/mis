@@ -14,6 +14,7 @@ import Page404 from "@/components/Page404.vue"
 
 Vue.use(VueRouter);
 
+import VtsDashboard from "@/views/VtsDashboard"
 import UserSettings from "../views/UserSettings";
 import UserEmailsSubscriptions from "../views/UserEmailsSubscriptions"
 import UserProfile from "../views/UserProfile";
@@ -117,39 +118,45 @@ const routes = [
         props: true,
         children: [
             {
-                path: 'vt-submit',
-                name: 'VtSubmit',
+                path: 'vts-submit',
+                name: 'VtsSubmit',
                 component: VtsSubmitRequire
             },
             {
-                path: 'vt-query',
-                name: 'VtQuery',
+                path: 'vts-query',
+                name: 'VtsQuery',
                 component: JsonQuery
             },
             {
-                path: 'vt-download',
-                name: 'VtDownload',
+                path: 'vts-download',
+                name: 'VtsDownload',
                 component: VtsDownloadPackage,
                 props: true
             },
             {
-                path: 'vt-statistic-require',
-                name: 'VtStatisticRequire',
+                path: 'vts-dashboard',
+                name: 'VtsDashboard',
+                component: VtsDashboard,
+                props: true
+            },
+            {
+                path: 'vts-statistic-require',
+                name: 'VtsStatisticRequire',
                 component: () => import('@/views/VtsStatisticRequire'),
             },
             {
-                path: 'vt-statistic-apikey',
-                name: 'VtStatisticApiKey',
+                path: 'vts-statistic-apikey',
+                name: 'VtsStatisticApiKey',
                 component: () => import('@/views/VtsStatisticApiKey'),
             },
             {
-                path: 'vt-statistic-sample',
-                name: 'VtStatisticSample',
+                path: 'vts-statistic-sample',
+                name: 'VtsStatisticSample',
                 component: () => import('@/views/VtsStatisticSample'),
             },
             {
-                path: 'vt-require',
-                name: 'VtRequire',
+                path: 'vts-require',
+                name: 'VtsRequire',
                 component: () => import('@/views/EchartSimpleBar'),
                 props: true
             },

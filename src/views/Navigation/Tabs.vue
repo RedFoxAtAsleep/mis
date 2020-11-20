@@ -88,9 +88,8 @@
                 // init 场景
                 // activate 场景
                 // remove 场景
-                console.log(this.selectedLocal, this.selectedGlobal);
                 console.log(tmp);
-                if(!this.selectedGlobal && tmp){
+                if(tmp.length > 0 && !this.selectedGlobal){
                     this.select(tmp[tmp.length-1]['uid'])
                 }
 
