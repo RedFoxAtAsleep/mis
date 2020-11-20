@@ -172,7 +172,7 @@ const routes = [
                 component: () => import('@/views/HcBasicBar'),
             },
             {
-                path: '',
+                path: 'mock-dashboard',
                 name: 'MockDashboard',
                 props: true,
                 component: () => import('@/views/MockDashboard'),

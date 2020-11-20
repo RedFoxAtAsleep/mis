@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="width: 40vw;height: 60vh">
+    <div>
       <el-form :inline="true" ref="param" :model="param" label-width="100px">
         <el-form-item label="时间范围">
           <el-date-picker

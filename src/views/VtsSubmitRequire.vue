@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form ref="form" :model="data" label-width="100px" class="demo-form" >
-      <el-form-item label="邮箱">
+      <el-form-item label="内网邮箱">
         <el-input type="mail" v-model="data.mail"></el-input>
       </el-form-item>
       <el-form-item label="哈希列表">
