@@ -13,7 +13,7 @@
       <el-form-item label="目标返回">
         <div><el-radio v-model="data.target" label="report">检查哈希列表文件</el-radio></div>
         <div><el-radio v-model="data.target" label="package_vt">返回需要从VirusTotal下载的样本</el-radio></div>
-        <div><el-radio v-model="data.target" label="package"  disabled >返回全部样本</el-radio></div>
+        <div><el-radio v-model="data.target" label="package" >返回全部样本</el-radio></div>
       </el-form-item>
       <el-form-item label="请求备注">
         <el-input
@@ -25,6 +25,27 @@
       </el-form-item>
       <el-form-item class="left">
         <el-button  type="primary" @click="submit">提交</el-button>
+        <el-popover
+            placement="top"
+            width="500px"
+            v-model="visible">
+          <ol>
+            <li><p>提交请求成功后立即返回，请求期望结果通过邮件返回</p></li>
+            <li><p>邮箱必须为内网邮箱</p></li>
+            <li><p>哈希列表文件后缀必须为 .txt ，文件内容是换行分割的样本哈希</p></li>
+            <li>
+              <p>目标返回参数有三个可选项，依次解释如下</p>
+              <ul>
+                <li><p>一封邮件返回检查结果，平均每检查1000个样本消耗十分钟时间，附件为两份哈希列表文件，区别在样本是否存在于 HDFS 中</p></li>
+                <li><p>一封邮件返回检查结果，一封邮件返回从 irusTotal 下载的样本</p></li>
+                <li><p>一封邮件返回检查结果，一封邮件返回从 POMA 和 VirusTotal 下载的样本</p></li>
+              </ul>
+            </li>
+            <li><p>备注以便区分不同的下载请求</p></li>
+            <li><p>提交正在处理或已经成功的请求，会再次收到相应的邮件</p></li>
+          </ol>
+          <el-button type="text" slot="reference" style="margin-left: 10px"><i class="el-icon-info"></i>查看帮助</el-button>
+        </el-popover>
       </el-form-item>
     </el-form>
 <!--    <el-card style="width: 60vw" class="box-card" v-if="rows4samples && rows4samples.length > 0">-->

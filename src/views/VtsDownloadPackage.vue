@@ -4,13 +4,10 @@
       <el-form-item label="邮箱">
         <el-input v-model="param.mail"></el-input>
       </el-form-item>
-      <el-form-item label="原列表MD5">
-        <el-input v-model="param.checked_md5"></el-input>
-      </el-form-item>
-      <el-form-item label="VT列表MD5">
+      <el-form-item label="列表哈希">
         <el-input v-model="param.origin_md5"></el-input>
       </el-form-item>
-      <el-form-item label="通知下载日期">
+      <el-form-item label="提交日期">
         <el-date-picker
             type="daterange"
             placeholder="选择日期"
@@ -25,6 +22,18 @@
         </el-date-picker>
       </el-form-item>
       <el-button @click="onSubmit">查询</el-button>
+      <el-popover
+          placement="bottom"
+          width="500px"
+          v-model="visible">
+        <ol>
+          <li><p>查询匹配该邮箱的请求</p></li>
+          <li><p>查询列表哈希值包含该字符串的请求，列表哈希值为是提交的列表文件的哈希值</p></li>
+          <li><p>查询日期范围左闭右开</p></li>
+          <li><p>查询结果为可下载的样本包</p></li>
+        </ol>
+        <el-button type="text" slot="reference" style="margin-left: 10px"><i class="el-icon-info"></i>查看帮助</el-button>
+      </el-popover>
     </el-form>
     <el-table
         v-if="rows && rows.length"
@@ -37,35 +46,11 @@
           :label="field2label[col]"
           width="150">
       </el-table-column>
-
-<!--      <el-table-column-->
-<!--          key="report"-->
-<!--          prop="report"-->
-<!--          :label="field2label['report']"-->
-<!--          width="150">-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-popover-->
-<!--              placement="bottom"-->
-<!--              title="标题"-->
-<!--              width="200"-->
-<!--              trigger="click"-->
-<!--              :content="JSON.stringify(scope.row.report)">-->
-<!--            <el-tag-->
-<!--                slot="reference"-->
-<!--                :type="scope.row.report ? 'success' : 'info'"-->
-<!--                disable-transitions>-->
-<!--              {{scope.row.report? 'report' : 'missed'}}-->
-<!--            </el-tag>-->
-<!--          </el-popover>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-
       <el-table-column
           fixed="right"
           label="操作">
         <template slot-scope="scope">
-          <el-button @click="sendUrl2Browser(param.mail, scope.row.checked_md5)" type="text" size="small">点击下载样本包</el-button>
+          <el-button v-if="scope.row.final_status === 'success'" @click="sendUrl2Browser(param.mail, scope.row.origin_md5, scope.row.target)" type="text" size="small">下载样本包</el-button>
 <!--          <el-button @click="downloadPackage(param.mail, scope.row.checked_md5)" type="text" size="small">点击下载样本包</el-button>-->
         </template>
       </el-table-column>
@@ -83,20 +68,20 @@ export default {
   data() {
     return {
       param: {
-        mail: 'zhaojinhui@intra.nsfocus.com',
-        checked_md5: '',
+        mail: '@intra.nsfocus.com',
         origin_md5: '',
         created_range: ['', ''],
       },
       field2label: {
-        "created": "通知下载时间",
+        "created": "提交时间",
         "note": "备注",
         "collected": "下载完成时间",
-        "origin_md5": "原列表哈希值",
-        "checked_md5": "VT列表哈希值",
-        "status": "下载状态",
-        "final_status": "最终下载状态",
-        "report": "下载样本报告"
+        "origin_md5": "原列表哈希",
+        "checked_md5": "VT列表哈希",
+        "status": "下载阶段",
+        "final_status": "下载状态",
+        "report": "下载样本报告",
+        "target": "期望返回",
       },
       rows: [],
       cols_excluded: ['report'],
@@ -135,7 +120,7 @@ export default {
   computed: {
     queryBody: function () {
       return {
-        "select": ["origin_md5", "checked_md5", "note", "status", "final_status", "created", "collected"],
+        "select": ["origin_md5", "note", "target", "final_status", "created", "collected"],
         "from": "require",
         "where": {
           "created__gte": this.param.created_range[0],
@@ -145,6 +130,7 @@ export default {
           "origin_md5__contains": this.param.origin_md5,
           "final_status__in": ["pending", "success"],
           "target__in": ["package_vt", "package"],
+          "expired": 0,
         },
         "group_by": [],
         "aggregate": [],
@@ -184,9 +170,9 @@ export default {
     //   Object.keys(dict).join('\n');
     //   return dict
     // },
-    sendUrl2Browser(mail, checked_md5){
+    sendUrl2Browser(mail, origin_md5, target){
       let link = document.createElement('a');
-      let url = 'http://10.51.10.68:8000/vts/download/?'+'mail='+mail+'&'+'checked_md5='+checked_md5;
+      let url = 'http://10.51.10.68:8000/vts/download/?'+'mail='+mail+'&'+'origin_md5='+origin_md5+'&'+'target=' + target;
       console.log(url);
       let filename = 'package.7z';
       link.href=url;

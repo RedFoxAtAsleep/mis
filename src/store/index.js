@@ -22,23 +22,21 @@ function indexWalker(indexConfig, indexStack, indices, menus, route2index, optio
         item['path'] = Object.assign([], indexStack);
         item['uid'] = indexStack.join('-');
 
-        for(let option of Object.getOwnPropertyNames(optionMeta)){
-            if(!(option in item)){
+        for (let option of Object.getOwnPropertyNames(optionMeta)) {
+            if (!(option in item)) {
                 item[option] = optionMeta[option]['default']
             }
         }
 
-        if(item['type'] === 'link'){
+        if (item['type'] === 'link') {
             item['icon'] = 'el-icon-link'
-        }
-        else if(item['children'].length > 0){
+        } else if (item['children'].length > 0) {
             item['icon'] = 'el-icon-menu'
-        }
-        else{
+        } else {
             item['icon'] = 'el-icon-s-promotion'
         }
 
-        if('route' in item){
+        if ('route' in item) {
             item['route']['uid'] = item['uid'];
             route2index[item['route']['name']] = item['uid']
         }
@@ -57,16 +55,16 @@ function indexWalker(indexConfig, indexStack, indices, menus, route2index, optio
 
 
 let optionMeta = {
-    type: {default: '', type: 'string', },
-    singleton: {default: true, type: 'boolean', },
-    weight: {default: 0, type: 'integer', },
-    show: {default: true, type: 'boolean', },
-    roles: {default: [], type: 'list', },
-    cache: {default: true, type: 'boolean', },
-    loaded: {default: false, type: 'boolean', },
-    children: {default: [], type: 'list', },
-    src: {default: '', type: 'string', },
-    icon: {default: '', type: 'string', },
+    type: {default: '', type: 'string',},
+    singleton: {default: true, type: 'boolean',},
+    weight: {default: 0, type: 'integer',},
+    show: {default: true, type: 'boolean',},
+    roles: {default: [], type: 'list',},
+    cache: {default: true, type: 'boolean',},
+    loaded: {default: false, type: 'boolean',},
+    children: {default: [], type: 'list',},
+    src: {default: '', type: 'string',},
+    icon: {default: '', type: 'string',},
 };
 
 
@@ -87,6 +85,7 @@ let indexConfig = [
             {
                 name: 'download',
                 label: '下载样本',
+                loaded: true,
                 route: {
                     'name': 'VtsDownload',
                     'params': {
@@ -99,44 +98,43 @@ let indexConfig = [
                 label: '统计分析',
                 route: {
                     'name': 'VtsDashboard',
-                    'params': {
-                    }
+                    'params': {}
                 },
             },
-            {
-                name: 'info',
-                label: '下载情况',
-                children:[
-                    {
-                        name: 'query',
-                        label: 'VT信息查询',
-                        route: {
-                            'name': 'VtsQuery'
-                        },
-                    },
-                    {
-                        name: 'statistic-require',
-                        label: '每日样本下载',
-                        route: {
-                            name: 'VtsStatisticRequire'
-                        }
-                    },
-                    {
-                        name: 'statistic-apikey',
-                        label: '每日API Key使用',
-                        route: {
-                            name: 'VtsStatisticApiKey'
-                        }
-                    },
-                    {
-                        name: 'statistic-sample',
-                        label: '本地样本分类',
-                        route: {
-                            name: 'VtsStatisticSample'
-                        }
-                    },
-                ]
-            },
+            // {
+            //     name: 'info',
+            //     label: '下载情况',
+            //     children:[
+            //         {
+            //             name: 'query',
+            //             label: 'VT信息查询',
+            //             route: {
+            //                 'name': 'VtsQuery'
+            //             },
+            //         },
+            //         {
+            //             name: 'statistic-require',
+            //             label: '每日样本下载',
+            //             route: {
+            //                 name: 'VtsStatisticRequire'
+            //             }
+            //         },
+            //         {
+            //             name: 'statistic-apikey',
+            //             label: '每日API Key使用',
+            //             route: {
+            //                 name: 'VtsStatisticApiKey'
+            //             }
+            //         },
+            //         {
+            //             name: 'statistic-sample',
+            //             label: '本地样本分类',
+            //             route: {
+            //                 name: 'VtsStatisticSample'
+            //             }
+            //         },
+            //     ]
+            // },
 
         ]
     },
@@ -162,6 +160,20 @@ let indexConfig = [
                 type: 'link',
                 src: 'http://10.51.10.68:5555/',
             },
+            {
+                name: 'query',
+                label: '简单数据查询',
+                route: {
+                    'name': 'VtsQuery'
+                },
+            },
+            {
+                name: 'poma_week_report',
+                label: '获取POMA运营周报邮件正文',
+                type: 'link',
+                src: 'http://10.51.10.68:8000/vts/report/mail/',
+            },
+
             // {
             //     name: 'flower-test',
             //     label: 'Flower面板',
@@ -177,32 +189,32 @@ let indexConfig = [
             // },
         ]
     },
-    {
-        name: 'component',
-        label: '组件预览',
-        children: [
-            {
-                name: 'hc-basic-bar',
-                label: 'HighChart基本类型柱状图',
-                route: {
-                    'name': 'HcBasicBar',
-                    params: {
-                        'id': 'component-hc-basic-bar'
-                    }
-                },
-            },
-            {
-                name: 'mock-dashboard',
-                label: '模拟数据',
-                route: {
-                    'name': 'MockDashboard',
-                    params: {
-                        'id': 'component-mock-dashboard'
-                    }
-                },
-            },
-        ]
-    },
+    // {
+    //     name: 'component',
+    //     label: '组件预览',
+    //     children: [
+    //         {
+    //             name: 'hc-basic-bar',
+    //             label: 'HighChart基本类型柱状图',
+    //             route: {
+    //                 'name': 'HcBasicBar',
+    //                 params: {
+    //                     'id': 'component-hc-basic-bar'
+    //                 }
+    //             },
+    //         },
+    //         {
+    //             name: 'mock-dashboard',
+    //             label: '模拟数据',
+    //             route: {
+    //                 'name': 'MockDashboard',
+    //                 params: {
+    //                     'id': 'component-mock-dashboard'
+    //                 }
+    //             },
+    //         },
+    //     ]
+    // },
 ];
 let indexStack = [];
 let indices = {};
@@ -222,8 +234,8 @@ export default new Vuex.Store({
         'indexConfigHash': function (state) {
             let s = JSON.stringify(state.indexConfig);
             let hash = 5381;
-            for(let i=0; i<s.length; i++){
-                hash += hash*33 + s.charAt(i).charCodeAt()
+            for (let i = 0; i < s.length; i++) {
+                hash += hash * 33 + s.charAt(i).charCodeAt()
             }
             return hash
         },

@@ -5,3 +5,9 @@ module.exports = {
     assetsDir: 'static',  // 相对于outputDir，js、css、img、fonts
 };
 
+module.exports = {
+    outputDir: 'dist',
+    indexPath: 'templates/index.html',
+    assetsDir: 'static',
+};
+

@@ -92,13 +92,13 @@
             ])
         },
         watch:{
-            $route: function (now, pre) {
-                console.log('route watch', now, pre);
-                if(now.name in this.route2index){
-                    this.loadArea(this.route2index[now.name]);
-                    this.select(this.route2index[now.name]);
-                }
+          $route: function (now, pre) {
+            console.log('route watch', now, pre);
+            if (now.name in this.route2index) {
+              this.loadArea(this.route2index[now.name]);
+              this.select(this.route2index[now.name]);
             }
+          }
         },
         components: {
             Tabs,

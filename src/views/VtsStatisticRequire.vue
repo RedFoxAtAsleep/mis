@@ -22,7 +22,7 @@
       </div>
 
       <div v-for="y in ys" :key="y" class="text item">
-        <span>{{'总和' + name2label[y] + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
+        <span>{{ name2label[y] + '总和' + ': ' +  cols[y].reduce((m,n)=>m+n)}}</span>
       </div>
 
       <highcharts  :options="chartOptions"></highcharts>
@@ -45,7 +45,7 @@ export default {
         created_range: ['', ''],
       },
       x: 'date',
-      ys: ["id__count", "origin_size__sum", "checked_size__sum", "collected_size__sum"],
+      ys: ["id__count", "origin_size__sum", "collected_size__sum"],
       pickerOptions: {
         shortcuts: [
           {
@@ -81,7 +81,7 @@ export default {
           type: 'column'
         },
         title: {
-          text: 'Vt Api Key 每日调用情况'
+          text: '每日样本下载'
         },
         subtitle: {
           text: ''
@@ -126,10 +126,9 @@ export default {
       },
       name2label:{
         date: '日期',
-        id__count: '批量下载请求计数',
-        origin_size__sum: '请求下载的样本数',
-        checked_size__sum: '待获取的样本数',
-        collected_size__sum: '成功获取的样本数',
+        id__count: '请求计数',
+        origin_size__sum: '请求样本数',
+        collected_size__sum: '获取样本数',
       },
     }
   },
